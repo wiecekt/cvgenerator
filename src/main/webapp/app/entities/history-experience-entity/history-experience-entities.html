@@ -1,0 +1,70 @@
+<div>
+    <h2 data-translate="cvgeneratorApp.historyExperienceEntity.home.title">History Experience Entities</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="history-experience-entity.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="cvgeneratorApp.historyExperienceEntity.home.createLabel">
+                        Create new History Experience Entity
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.historyStartDate">History Start Date</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.historyEndDate">History End Date</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.isWorking">Is Working</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.companyName">Company Name</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.position">Position</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.historyDescription">History Description</span></th>
+                    <th><span data-translate="cvgeneratorApp.historyExperienceEntity.employeeEntity">Employee Entity</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="historyExperienceEntity in vm.historyExperienceEntities track by historyExperienceEntity.id">
+                    <td><a ui-sref="history-experience-entity-detail({id:historyExperienceEntity.id})">{{historyExperienceEntity.id}}</a></td>
+                        <td>{{historyExperienceEntity.historyStartDate | date:'mediumDate'}}</td>
+                        <td>{{historyExperienceEntity.historyEndDate | date:'mediumDate'}}</td>
+                    <td>{{historyExperienceEntity.isWorking}}</td>
+                    <td>{{historyExperienceEntity.companyName}}</td>
+                    <td>{{historyExperienceEntity.position}}</td>
+                    <td>{{historyExperienceEntity.historyDescription}}</td>
+                    <td>
+                        <a ui-sref="employee-entity-detail({id:historyExperienceEntity.employeeEntity.id})">{{historyExperienceEntity.employeeEntity.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="history-experience-entity-detail({id:historyExperienceEntity.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="history-experience-entity.edit({id:historyExperienceEntity.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="history-experience-entity.delete({id:historyExperienceEntity.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

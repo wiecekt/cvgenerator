@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "employeeEntity",
+            "otherEntityName": "employeeEntity",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "userEntity"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "username",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "accountType",
+            "fieldType": "AccountType",
+            "fieldValues": "EMPLOYEE,HR_ASSISTANT"
+        }
+    ],
+    "changelogDate": "20170803070455",
+    "entityTableName": "user_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

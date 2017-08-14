@@ -1,0 +1,115 @@
+entity UserEntity {
+    id Long,
+    username String,
+    password String,
+    accountType AccountType
+}
+
+enum AccountType {
+    EMPLOYEE, HR_ASSISTANT
+}
+
+enum SectionType {
+    ABILITY,
+    ADDITIONAL_INFO,
+    EDUCATION,
+    EMPLOYEE,
+    HISTORY_EXPERIENCE,
+    LANGUAGE,
+    PERMISSION,
+    PROJECT
+}
+
+entity EmployeeEntity {
+
+    id Long,
+    name String,
+    surname String,
+    department String,
+    division String,
+    address String,
+    dateOfBirth String,
+    email String,
+    telephone String
+
+}
+
+entity HistoryExperienceEntity {
+    id Long,
+    historyStartDate LocalDate,
+    historyEndDate LocalDate,
+    isWorking Boolean,
+    companyName String,
+    position String,
+    historyDescription String
+}
+
+entity EducationEntity {
+
+    id Long, 
+    educationStartDate LocalDate,
+    educationEndDate LocalDate,
+    isLearning Boolean,
+    schoolName String,
+    subject String,
+    educationDescription String
+
+}
+
+entity LanguageEntity {
+    id Long,
+    languageName String,
+    languageLevel String,
+    certificate String
+}
+
+entity AbilityEntity {
+    id Long,
+    abilityType String,
+    abilityLevel String,
+    experience String,
+    abilityDescription String
+}
+
+entity AdditionalInfoEntity {
+    id Long,
+    additionalInfoName String,
+    additionalInfoValue String
+}
+
+entity PermissionEntity {
+    id Long,
+    permissionsName String,
+    permissionsValue String
+}
+
+entity ProjectEntity {
+    id Long,
+    project String,
+    client String,
+    technology String,
+    duties String
+}
+
+
+entity DictionaryEntity {
+    id Long,
+    section String,
+    field String,
+    value String
+}
+
+
+relationship OneToOne {
+    EmployeeEntity{UserEntity} to UserEntity{EmployeeEntity}
+}
+
+relationship OneToMany {
+    EmployeeEntity{HistoryExperienceEntity} to HistoryExperienceEntity{EmployeeEntity},
+    EmployeeEntity{EducationEntity} to EducationEntity{EmployeeEntity},
+    EmployeeEntity{AbilityEntity} to AbilityEntity{EmployeeEntity},
+    EmployeeEntity{AdditionalInfoEntity} to AdditionalInfoEntity{EmployeeEntity},
+    EmployeeEntity{PermissionEntity} to PermissionEntity{EmployeeEntity},
+    EmployeeEntity{ProjectEntity} to ProjectEntity{EmployeeEntity}
+    EmployeeEntity{LanguageEntity} to LanguageEntity{EmployeeEntity}
+}

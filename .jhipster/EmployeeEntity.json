@@ -1,0 +1,94 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "userEntity",
+            "otherEntityName": "userEntity",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "historyExperienceEntity",
+            "otherEntityName": "historyExperienceEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "educationEntity",
+            "otherEntityName": "educationEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "abilityEntity",
+            "otherEntityName": "abilityEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "additionalInfoEntity",
+            "otherEntityName": "additionalInfoEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "permissionEntity",
+            "otherEntityName": "permissionEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "projectEntity",
+            "otherEntityName": "projectEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "languageEntity",
+            "otherEntityName": "languageEntity",
+            "otherEntityRelationshipName": "employeeEntity"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "surname",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "department",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "division",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateOfBirth",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telephone",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070456",
+    "entityTableName": "employee_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

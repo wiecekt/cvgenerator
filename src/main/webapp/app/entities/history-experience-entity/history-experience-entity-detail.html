@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.historyExperienceEntity.detail.title">History Experience Entity</span> {{vm.historyExperienceEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.historyStartDate">History Start Date</span></dt>
+        <dd>
+            <span>{{vm.historyExperienceEntity.historyStartDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.historyEndDate">History End Date</span></dt>
+        <dd>
+            <span>{{vm.historyExperienceEntity.historyEndDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.isWorking">Is Working</span></dt>
+        <dd>
+            <span>{{vm.historyExperienceEntity.isWorking}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.companyName">Company Name</span></dt>
+        <dd>
+            <span>{{vm.historyExperienceEntity.companyName}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.position">Position</span></dt>
+        <dd>
+            <span>{{vm.historyExperienceEntity.position}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.historyDescription">History Description</span></dt>
+        <dd>
+            <span>{{vm.historyExperienceEntity.historyDescription}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.historyExperienceEntity.employeeEntity">Employee Entity</span></dt>
+        <dd>
+            <a ui-sref="employee-entity-detail({id:vm.historyExperienceEntity.employeeEntity.id})">{{vm.historyExperienceEntity.employeeEntity.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="history-experience-entity-detail.edit({id:vm.historyExperienceEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

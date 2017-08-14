@@ -1,0 +1,24 @@
+{
+    "cvgeneratorApp": {
+        "languageEntity" : {
+            "home": {
+                "title": "Language Entities",
+                "createLabel": "Language Entity erstellen",
+                "createOrEditLabel": "Language Entity erstellen oder bearbeiten"
+            },
+            "created": "Language Entity erstellt mit ID {{ param }}",
+            "updated": "Language Entity aktualisiert mit ID {{ param }}",
+            "deleted": "Language Entity gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Language Entity {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Language Entity"
+            },
+            "languageName": "Language Name",
+            "languageLevel": "Language Level",
+            "certificate": "Certificate",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

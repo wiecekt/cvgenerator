@@ -1,0 +1,27 @@
+{
+    "cvgeneratorApp": {
+        "educationEntity" : {
+            "home": {
+                "title": "Education Entities",
+                "createLabel": "Education Entity erstellen",
+                "createOrEditLabel": "Education Entity erstellen oder bearbeiten"
+            },
+            "created": "Education Entity erstellt mit ID {{ param }}",
+            "updated": "Education Entity aktualisiert mit ID {{ param }}",
+            "deleted": "Education Entity gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Education Entity {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Education Entity"
+            },
+            "educationStartDate": "Education Start Date",
+            "educationEndDate": "Education End Date",
+            "isLearning": "Is Learning",
+            "schoolName": "School Name",
+            "subject": "Subject",
+            "educationDescription": "Education Description",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

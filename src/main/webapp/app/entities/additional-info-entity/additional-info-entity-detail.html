@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.additionalInfoEntity.detail.title">Additional Info Entity</span> {{vm.additionalInfoEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.additionalInfoEntity.additionalInfoName">Additional Info Name</span></dt>
+        <dd>
+            <span>{{vm.additionalInfoEntity.additionalInfoName}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.additionalInfoEntity.additionalInfoValue">Additional Info Value</span></dt>
+        <dd>
+            <span>{{vm.additionalInfoEntity.additionalInfoValue}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.additionalInfoEntity.employeeEntity">Employee Entity</span></dt>
+        <dd>
+            <a ui-sref="employee-entity-detail({id:vm.additionalInfoEntity.employeeEntity.id})">{{vm.additionalInfoEntity.employeeEntity.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="additional-info-entity-detail.edit({id:vm.additionalInfoEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

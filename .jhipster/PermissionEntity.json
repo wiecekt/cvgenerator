@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "employeeEntity",
+            "otherEntityName": "employeeEntity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "permissionsName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "permissionsValue",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070502",
+    "entityTableName": "permission_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

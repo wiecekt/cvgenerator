@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "employeeEntity",
+            "otherEntityName": "employeeEntity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "additionalInfoName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "additionalInfoValue",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070501",
+    "entityTableName": "additional_info_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

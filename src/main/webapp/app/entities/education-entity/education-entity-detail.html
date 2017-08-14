@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.educationEntity.detail.title">Education Entity</span> {{vm.educationEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.educationEntity.educationStartDate">Education Start Date</span></dt>
+        <dd>
+            <span>{{vm.educationEntity.educationStartDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.educationEntity.educationEndDate">Education End Date</span></dt>
+        <dd>
+            <span>{{vm.educationEntity.educationEndDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.educationEntity.isLearning">Is Learning</span></dt>
+        <dd>
+            <span>{{vm.educationEntity.isLearning}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.educationEntity.schoolName">School Name</span></dt>
+        <dd>
+            <span>{{vm.educationEntity.schoolName}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.educationEntity.subject">Subject</span></dt>
+        <dd>
+            <span>{{vm.educationEntity.subject}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.educationEntity.educationDescription">Education Description</span></dt>
+        <dd>
+            <span>{{vm.educationEntity.educationDescription}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.educationEntity.employeeEntity">Employee Entity</span></dt>
+        <dd>
+            <a ui-sref="employee-entity-detail({id:vm.educationEntity.employeeEntity.id})">{{vm.educationEntity.employeeEntity.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="education-entity-detail.edit({id:vm.educationEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

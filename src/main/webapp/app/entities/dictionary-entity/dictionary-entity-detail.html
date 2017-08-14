@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.dictionaryEntity.detail.title">Dictionary Entity</span> {{vm.dictionaryEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.dictionaryEntity.section">Section</span></dt>
+        <dd>
+            <span>{{vm.dictionaryEntity.section}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.dictionaryEntity.field">Field</span></dt>
+        <dd>
+            <span>{{vm.dictionaryEntity.field}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.dictionaryEntity.value">Value</span></dt>
+        <dd>
+            <span>{{vm.dictionaryEntity.value}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="dictionary-entity-detail.edit({id:vm.dictionaryEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,25 @@
+{
+    "cvgeneratorApp": {
+        "abilityEntity" : {
+            "home": {
+                "title": "Ability Entities",
+                "createLabel": "Ability Entity erstellen",
+                "createOrEditLabel": "Ability Entity erstellen oder bearbeiten"
+            },
+            "created": "Ability Entity erstellt mit ID {{ param }}",
+            "updated": "Ability Entity aktualisiert mit ID {{ param }}",
+            "deleted": "Ability Entity gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Ability Entity {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Ability Entity"
+            },
+            "abilityType": "Ability Type",
+            "abilityLevel": "Ability Level",
+            "experience": "Experience",
+            "abilityDescription": "Ability Description",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

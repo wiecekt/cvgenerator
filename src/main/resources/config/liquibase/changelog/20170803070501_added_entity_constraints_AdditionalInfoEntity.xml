@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity AdditionalInfoEntity.
+    -->
+    <changeSet id="20170803070501-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="employee_entity_id"
+                                 baseTableName="additional_info_entity"
+                                 constraintName="fk_additional_info_entity_employee_entity_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee_entity"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,9 @@
+{
+    "cvgeneratorApp": {
+        "AccountType" : {
+            "null": "",
+            "EMPLOYEE": "EMPLOYEE",
+            "HR_ASSISTANT": "HR_ASSISTANT"
+        }
+    }
+}

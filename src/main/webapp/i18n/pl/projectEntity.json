@@ -1,0 +1,25 @@
+{
+    "cvgeneratorApp": {
+        "projectEntity" : {
+            "home": {
+                "title": "Project Entities",
+                "createLabel": "Dodaj Project Entity",
+                "createOrEditLabel": "Dodaj lub edytuj: Project Entity"
+            },
+            "created": "Utworzono nowy Project Entity z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono Project Entity z identyfikatorem {{ param }}",
+            "deleted": "Usunięto Project Entity z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Project Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Project Entity"
+            },
+            "project": "Project",
+            "client": "Client",
+            "technology": "Technology",
+            "duties": "Duties",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

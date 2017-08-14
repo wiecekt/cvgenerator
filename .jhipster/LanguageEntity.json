@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "employeeEntity",
+            "otherEntityName": "employeeEntity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "languageName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "languageLevel",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "certificate",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070459",
+    "entityTableName": "language_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,23 @@
+{
+    "cvgeneratorApp": {
+        "dictionaryEntity" : {
+            "home": {
+                "title": "Dictionary Entities",
+                "createLabel": "Create a new Dictionary Entity",
+                "createOrEditLabel": "Create or edit a Dictionary Entity"
+            },
+            "created": "A new Dictionary Entity is created with identifier {{ param }}",
+            "updated": "A Dictionary Entity is updated with identifier {{ param }}",
+            "deleted": "A Dictionary Entity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Dictionary Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Dictionary Entity"
+            },
+            "section": "Section",
+            "field": "Field",
+            "value": "Value"
+        }
+    }
+}

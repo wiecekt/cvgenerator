@@ -1,0 +1,23 @@
+{
+    "cvgeneratorApp": {
+        "additionalInfoEntity" : {
+            "home": {
+                "title": "Additional Info Entities",
+                "createLabel": "Dodaj Additional Info Entity",
+                "createOrEditLabel": "Dodaj lub edytuj: Additional Info Entity"
+            },
+            "created": "Utworzono nowy Additional Info Entity z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono Additional Info Entity z identyfikatorem {{ param }}",
+            "deleted": "Usunięto Additional Info Entity z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Additional Info Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Additional Info Entity"
+            },
+            "additionalInfoName": "Additional Info Name",
+            "additionalInfoValue": "Additional Info Value",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

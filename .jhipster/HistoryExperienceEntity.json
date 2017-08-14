@@ -1,0 +1,42 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "employeeEntity",
+            "otherEntityName": "employeeEntity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "historyStartDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "historyEndDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "isWorking",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "companyName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "position",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "historyDescription",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070457",
+    "entityTableName": "history_experience_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

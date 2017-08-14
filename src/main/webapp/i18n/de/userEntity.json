@@ -1,0 +1,24 @@
+{
+    "cvgeneratorApp": {
+        "userEntity" : {
+            "home": {
+                "title": "User Entities",
+                "createLabel": "User Entity erstellen",
+                "createOrEditLabel": "User Entity erstellen oder bearbeiten"
+            },
+            "created": "User Entity erstellt mit ID {{ param }}",
+            "updated": "User Entity aktualisiert mit ID {{ param }}",
+            "deleted": "User Entity gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll User Entity {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "User Entity"
+            },
+            "username": "Username",
+            "password": "Password",
+            "accountType": "Account Type",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

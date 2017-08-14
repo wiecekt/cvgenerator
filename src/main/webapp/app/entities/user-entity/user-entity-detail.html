@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.userEntity.detail.title">User Entity</span> {{vm.userEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.userEntity.username">Username</span></dt>
+        <dd>
+            <span>{{vm.userEntity.username}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.userEntity.password">Password</span></dt>
+        <dd>
+            <span>{{vm.userEntity.password}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.userEntity.accountType">Account Type</span></dt>
+        <dd>
+            <span data-translate="{{'cvgeneratorApp.AccountType.' + vm.userEntity.accountType}}">{{vm.userEntity.accountType}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="user-entity-detail.edit({id:vm.userEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,75 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myHistoryExperienceEntityLabel" data-translate="cvgeneratorApp.historyExperienceEntity.home.createOrEditLabel">Create or edit a History Experience Entity</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.historyExperienceEntity.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.historyExperienceEntity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="cvgeneratorApp.historyExperienceEntity.historyStartDate" for="field_historyStartDate">History Start Date</label>
+                <div class="input-group">
+                    <input id="field_historyStartDate" type="text" class="form-control" name="historyStartDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.historyExperienceEntity.historyStartDate" is-open="vm.datePickerOpenStatus.historyStartDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('historyStartDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="cvgeneratorApp.historyExperienceEntity.historyEndDate" for="field_historyEndDate">History End Date</label>
+                <div class="input-group">
+                    <input id="field_historyEndDate" type="text" class="form-control" name="historyEndDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.historyExperienceEntity.historyEndDate" is-open="vm.datePickerOpenStatus.historyEndDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('historyEndDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="cvgeneratorApp.historyExperienceEntity.isWorking" for="field_isWorking">Is Working</label>
+                <input type="checkbox" name="isWorking" id="field_isWorking"
+                          ng-model="vm.historyExperienceEntity.isWorking"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="cvgeneratorApp.historyExperienceEntity.companyName" for="field_companyName">Company Name</label>
+            <input type="text" class="form-control" name="companyName" id="field_companyName"
+                    ng-model="vm.historyExperienceEntity.companyName"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="cvgeneratorApp.historyExperienceEntity.position" for="field_position">Position</label>
+            <input type="text" class="form-control" name="position" id="field_position"
+                    ng-model="vm.historyExperienceEntity.position"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="cvgeneratorApp.historyExperienceEntity.historyDescription" for="field_historyDescription">History Description</label>
+            <input type="text" class="form-control" name="historyDescription" id="field_historyDescription"
+                    ng-model="vm.historyExperienceEntity.historyDescription"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="cvgeneratorApp.historyExperienceEntity.employeeEntity" for="field_employeeEntity">Employee Entity</label>
+            <select class="form-control" id="field_employeeEntity" name="employeeEntity" ng-model="vm.historyExperienceEntity.employeeEntity" ng-options="employeeEntity as employeeEntity.id for employeeEntity in vm.employeeentities track by employeeEntity.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

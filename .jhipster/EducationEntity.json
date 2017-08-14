@@ -1,0 +1,42 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "employeeEntity",
+            "otherEntityName": "employeeEntity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "educationStartDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "educationEndDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "isLearning",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "schoolName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "educationDescription",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070458",
+    "entityTableName": "education_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.abilityEntity.detail.title">Ability Entity</span> {{vm.abilityEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.abilityEntity.abilityType">Ability Type</span></dt>
+        <dd>
+            <span>{{vm.abilityEntity.abilityType}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.abilityEntity.abilityLevel">Ability Level</span></dt>
+        <dd>
+            <span>{{vm.abilityEntity.abilityLevel}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.abilityEntity.experience">Experience</span></dt>
+        <dd>
+            <span>{{vm.abilityEntity.experience}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.abilityEntity.abilityDescription">Ability Description</span></dt>
+        <dd>
+            <span>{{vm.abilityEntity.abilityDescription}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.abilityEntity.employeeEntity">Employee Entity</span></dt>
+        <dd>
+            <a ui-sref="employee-entity-detail({id:vm.abilityEntity.employeeEntity.id})">{{vm.abilityEntity.employeeEntity.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="ability-entity-detail.edit({id:vm.abilityEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

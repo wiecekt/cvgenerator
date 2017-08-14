@@ -1,0 +1,27 @@
+{
+    "cvgeneratorApp": {
+        "historyExperienceEntity" : {
+            "home": {
+                "title": "History Experience Entities",
+                "createLabel": "Dodaj History Experience Entity",
+                "createOrEditLabel": "Dodaj lub edytuj: History Experience Entity"
+            },
+            "created": "Utworzono nowy History Experience Entity z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono History Experience Entity z identyfikatorem {{ param }}",
+            "deleted": "Usunięto History Experience Entity z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć History Experience Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "History Experience Entity"
+            },
+            "historyStartDate": "History Start Date",
+            "historyEndDate": "History End Date",
+            "isWorking": "Is Working",
+            "companyName": "Company Name",
+            "position": "Position",
+            "historyDescription": "History Description",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

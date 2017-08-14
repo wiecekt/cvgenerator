@@ -1,0 +1,25 @@
+{
+    "cvgeneratorApp": {
+        "abilityEntity" : {
+            "home": {
+                "title": "Ability Entities",
+                "createLabel": "Create a new Ability Entity",
+                "createOrEditLabel": "Create or edit a Ability Entity"
+            },
+            "created": "A new Ability Entity is created with identifier {{ param }}",
+            "updated": "A Ability Entity is updated with identifier {{ param }}",
+            "deleted": "A Ability Entity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Ability Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Ability Entity"
+            },
+            "abilityType": "Ability Type",
+            "abilityLevel": "Ability Level",
+            "experience": "Experience",
+            "abilityDescription": "Ability Description",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

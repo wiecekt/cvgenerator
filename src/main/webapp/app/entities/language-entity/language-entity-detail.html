@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.languageEntity.detail.title">Language Entity</span> {{vm.languageEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.languageEntity.languageName">Language Name</span></dt>
+        <dd>
+            <span>{{vm.languageEntity.languageName}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.languageEntity.languageLevel">Language Level</span></dt>
+        <dd>
+            <span>{{vm.languageEntity.languageLevel}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.languageEntity.certificate">Certificate</span></dt>
+        <dd>
+            <span>{{vm.languageEntity.certificate}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.languageEntity.employeeEntity">Employee Entity</span></dt>
+        <dd>
+            <a ui-sref="employee-entity-detail({id:vm.languageEntity.employeeEntity.id})">{{vm.languageEntity.employeeEntity.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="language-entity-detail.edit({id:vm.languageEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

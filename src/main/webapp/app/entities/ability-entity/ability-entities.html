@@ -1,0 +1,66 @@
+<div>
+    <h2 data-translate="cvgeneratorApp.abilityEntity.home.title">Ability Entities</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="ability-entity.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="cvgeneratorApp.abilityEntity.home.createLabel">
+                        Create new Ability Entity
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="cvgeneratorApp.abilityEntity.abilityType">Ability Type</span></th>
+                    <th><span data-translate="cvgeneratorApp.abilityEntity.abilityLevel">Ability Level</span></th>
+                    <th><span data-translate="cvgeneratorApp.abilityEntity.experience">Experience</span></th>
+                    <th><span data-translate="cvgeneratorApp.abilityEntity.abilityDescription">Ability Description</span></th>
+                    <th><span data-translate="cvgeneratorApp.abilityEntity.employeeEntity">Employee Entity</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="abilityEntity in vm.abilityEntities track by abilityEntity.id">
+                    <td><a ui-sref="ability-entity-detail({id:abilityEntity.id})">{{abilityEntity.id}}</a></td>
+                    <td>{{abilityEntity.abilityType}}</td>
+                    <td>{{abilityEntity.abilityLevel}}</td>
+                    <td>{{abilityEntity.experience}}</td>
+                    <td>{{abilityEntity.abilityDescription}}</td>
+                    <td>
+                        <a ui-sref="employee-entity-detail({id:abilityEntity.employeeEntity.id})">{{abilityEntity.employeeEntity.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="ability-entity-detail({id:abilityEntity.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="ability-entity.edit({id:abilityEntity.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="ability-entity.delete({id:abilityEntity.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

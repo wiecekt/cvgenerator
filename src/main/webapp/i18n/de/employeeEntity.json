@@ -1,0 +1,36 @@
+{
+    "cvgeneratorApp": {
+        "employeeEntity" : {
+            "home": {
+                "title": "Employee Entities",
+                "createLabel": "Employee Entity erstellen",
+                "createOrEditLabel": "Employee Entity erstellen oder bearbeiten"
+            },
+            "created": "Employee Entity erstellt mit ID {{ param }}",
+            "updated": "Employee Entity aktualisiert mit ID {{ param }}",
+            "deleted": "Employee Entity gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Employee Entity {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Employee Entity"
+            },
+            "name": "Name",
+            "surname": "Surname",
+            "department": "Department",
+            "division": "Division",
+            "address": "Address",
+            "dateOfBirth": "Date Of Birth",
+            "email": "Email",
+            "telephone": "Telephone",
+            "userEntity": "User Entity",
+            "historyExperienceEntity": "History Experience Entity",
+            "educationEntity": "Education Entity",
+            "abilityEntity": "Ability Entity",
+            "additionalInfoEntity": "Additional Info Entity",
+            "permissionEntity": "Permission Entity",
+            "projectEntity": "Project Entity",
+            "languageEntity": "Language Entity"
+        }
+    }
+}

@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span data-translate="cvgeneratorApp.employeeEntity.detail.title">Employee Entity</span> {{vm.employeeEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.name">Name</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.name}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.surname">Surname</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.surname}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.department">Department</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.department}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.division">Division</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.division}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.address">Address</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.address}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.dateOfBirth">Date Of Birth</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.dateOfBirth}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.email">Email</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.email}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.telephone">Telephone</span></dt>
+        <dd>
+            <span>{{vm.employeeEntity.telephone}}</span>
+        </dd>
+        <dt><span data-translate="cvgeneratorApp.employeeEntity.userEntity">User Entity</span></dt>
+        <dd>
+            <a ui-sref="user-entity-detail({id:vm.employeeEntity.userEntity.id})">{{vm.employeeEntity.userEntity.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="employee-entity-detail.edit({id:vm.employeeEntity.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

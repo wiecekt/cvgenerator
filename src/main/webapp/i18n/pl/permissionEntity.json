@@ -1,0 +1,23 @@
+{
+    "cvgeneratorApp": {
+        "permissionEntity" : {
+            "home": {
+                "title": "Permission Entities",
+                "createLabel": "Dodaj Permission Entity",
+                "createOrEditLabel": "Dodaj lub edytuj: Permission Entity"
+            },
+            "created": "Utworzono nowy Permission Entity z identyfikatorem {{ param }}",
+            "updated": "Uaktualniono Permission Entity z identyfikatorem {{ param }}",
+            "deleted": "Usunięto Permission Entity z identyfikatorem {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Permission Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Permission Entity"
+            },
+            "permissionsName": "Permissions Name",
+            "permissionsValue": "Permissions Value",
+            "employeeEntity": "Employee Entity"
+        }
+    }
+}

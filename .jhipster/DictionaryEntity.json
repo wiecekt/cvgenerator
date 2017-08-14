@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "section",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "field",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170803070504",
+    "entityTableName": "dictionary_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

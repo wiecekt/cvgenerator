@@ -1,0 +1,74 @@
+<div>
+    <h2 data-translate="cvgeneratorApp.employeeEntity.home.title">Employee Entities</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="employee-entity.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="cvgeneratorApp.employeeEntity.home.createLabel">
+                        Create new Employee Entity
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.name">Name</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.surname">Surname</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.department">Department</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.division">Division</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.address">Address</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.dateOfBirth">Date Of Birth</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.email">Email</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.telephone">Telephone</span></th>
+                    <th><span data-translate="cvgeneratorApp.employeeEntity.userEntity">User Entity</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employeeEntity in vm.employeeEntities track by employeeEntity.id">
+                    <td><a ui-sref="employee-entity-detail({id:employeeEntity.id})">{{employeeEntity.id}}</a></td>
+                    <td>{{employeeEntity.name}}</td>
+                    <td>{{employeeEntity.surname}}</td>
+                    <td>{{employeeEntity.department}}</td>
+                    <td>{{employeeEntity.division}}</td>
+                    <td>{{employeeEntity.address}}</td>
+                    <td>{{employeeEntity.dateOfBirth}}</td>
+                    <td>{{employeeEntity.email}}</td>
+                    <td>{{employeeEntity.telephone}}</td>
+                    <td>
+                        <a ui-sref="user-entity-detail({id:employeeEntity.userEntity.id})">{{employeeEntity.userEntity.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="employee-entity-detail({id:employeeEntity.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="employee-entity.edit({id:employeeEntity.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="employee-entity.delete({id:employeeEntity.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

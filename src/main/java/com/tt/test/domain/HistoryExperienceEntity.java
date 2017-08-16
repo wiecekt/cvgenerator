@@ -88,7 +88,7 @@ public class HistoryExperienceEntity implements Serializable {
         this.historyEndDate = historyEndDate;
     }
 
-    public Boolean getWorking() {
+    public Boolean getIsWorking() {
         return isWorking;
     }
 
@@ -97,7 +97,7 @@ public class HistoryExperienceEntity implements Serializable {
         return this;
     }
 
-    public void setWorking(Boolean isWorking) {
+    public void setIsWorking(Boolean isWorking) {
         this.isWorking = isWorking;
     }
 
@@ -179,7 +179,7 @@ public class HistoryExperienceEntity implements Serializable {
             "id=" + getId() +
             ", historyStartDate='" + getHistoryStartDate() + "'" +
             ", historyEndDate='" + getHistoryEndDate() + "'" +
-            ", isWorking='" + getWorking() + "'" +
+            ", isWorking='" + getIsWorking() + "'" +
             ", companyName='" + getCompanyName() + "'" +
             ", position='" + getPosition() + "'" +
             ", historyDescription='" + getHistoryDescription() + "'" +

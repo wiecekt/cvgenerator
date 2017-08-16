@@ -1,11 +1,8 @@
 package com.tt.test.service;
 
 import com.tt.test.domain.EmployeeEntity;
-import com.tt.test.domain.ProjectEntity;
 import com.tt.test.domain.UserEntity;
-import com.tt.test.service.dto.ProjectDTO;
 import com.tt.test.service.dto.SmallEmployeeDTO;
-import com.tt.test.service.dto.UserEntityDTO;
 
 import java.util.List;
 

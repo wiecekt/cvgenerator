@@ -2,9 +2,12 @@ package com.tt.test.service.impl;
 
 import com.tt.test.domain.EmployeeEntity;
 import com.tt.test.domain.UserEntity;
+import com.tt.test.repository.EmployeeEntityRepository;
 import com.tt.test.repository.UserEntityRepository;
 import com.tt.test.service.UserEntityService;
-import com.tt.test.service.dto.SmallEmployeeDTO;
+import com.tt.test.service.dto.UserEntityDTO;
+import com.tt.test.service.mapper.UserEntityMapper;
+import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +17,14 @@ import java.util.List;
 public class UserEntityServiceImpl implements UserEntityService {
 
     private UserEntityRepository userEntityRepository;
+    private EmployeeEntityRepository employeeEntityRepository;
+    private UserEntityMapper userEntityMapper;
 
     @Autowired
-    public UserEntityServiceImpl(UserEntityRepository userEntityRepository) {
+    public UserEntityServiceImpl(UserEntityRepository userEntityRepository, EmployeeEntityRepository employeeEntityRepository) {
         this.userEntityRepository = userEntityRepository;
+        this.employeeEntityRepository = employeeEntityRepository;
+        this.userEntityMapper = Selma.builder(UserEntityMapper.class).build();
     }
 
     @Override
@@ -26,27 +33,45 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public void create(SmallEmployeeDTO smallEmployeeDTO) {
+    public void create(UserEntityDTO userEntityDTO) {
+        //sprawdz czy istnieje
+        EmployeeEntity employeeById = findEmployeeById(userEntityDTO.getEmployeeId());
+        UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
+        userEntity.setEmployeeEntity(employeeById);
 
+        userEntityRepository.save(userEntity);
     }
 
     @Override
-    public EmployeeEntity getEmployeeById(Long id) {
-        return null;
+    public EmployeeEntity findEmployeeById(Long id) {
+        return employeeEntityRepository.findOne(id);
     }
 
     @Override
-    public List<EmployeeEntity> getAllEmployees() {
-        return null;
+    public UserEntity getUserById(Long id) {
+        return userEntityRepository.findOne(id);
     }
 
     @Override
-    public void updateEmployee(Long id, SmallEmployeeDTO smallEmployeeDTO) {
-
+    public List<UserEntity> getAllUsers() {
+        return userEntityRepository.findAll();
     }
 
     @Override
-    public void deleteEmployeeById(Long id) {
+    public void updateUser(Long id, UserEntityDTO userEntityDTO) {
+        //sprawdz czy istnieje
+        UserEntity userById = getUserById(id);
+        UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
+        userEntity.setId(userById.getId());
 
+        EmployeeEntity employeeById = findEmployeeById(userEntityDTO.getEmployeeId());
+        userEntity.setEmployeeEntity(employeeById);
+
+        userEntityRepository.save(userEntity);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userEntityRepository.delete(id);
     }
 }

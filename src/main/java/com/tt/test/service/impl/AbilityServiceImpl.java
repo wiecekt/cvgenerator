@@ -24,6 +24,7 @@ public class AbilityServiceImpl implements AbilityService {
     public AbilityServiceImpl(AbilityEntityRepository abilityEntityRepository, EmployeeEntityRepository employeeEntityRepository) {
         this.abilityEntityRepository = abilityEntityRepository;
         this.employeeEntityRepository = employeeEntityRepository;
+        this.abilityMapper = Selma.builder(AbilityMapper.class).build();
     }
 
     @Override
@@ -37,7 +38,6 @@ public class AbilityServiceImpl implements AbilityService {
 
         //sprawdz czy istnieje taki o podanym id
         EmployeeEntity employeeById = findEmployeeById(abilityDTO.getEmployeeId());
-        abilityMapper = Selma.builder(AbilityMapper.class).build();
         AbilityEntity abilityEntity = abilityMapper.asAbilityEntity(abilityDTO);
         abilityEntity.setEmployeeEntity(employeeById);
 
@@ -64,7 +64,6 @@ public class AbilityServiceImpl implements AbilityService {
     public void updateAbility(Long id, AbilityDTO abilityDTO) {
         //sprawdz czy istnieje
         AbilityEntity abilityById = getAbilityById(id);
-        abilityMapper = Selma.builder(AbilityMapper.class).build();
         AbilityEntity abilityEntity = abilityMapper.asAbilityEntity(abilityDTO);
         abilityEntity.setId(abilityById.getId());
 

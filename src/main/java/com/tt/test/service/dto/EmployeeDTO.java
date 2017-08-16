@@ -3,12 +3,10 @@ package com.tt.test.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import org.joda.time.LocalDate;
 
 //import java.sql.Date;
-import java.util.Date;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)

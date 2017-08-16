@@ -2,7 +2,6 @@ package com.tt.test.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.DictionaryEntity;
-
 import com.tt.test.repository.DictionaryEntityRepository;
 import com.tt.test.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -35,11 +33,9 @@ public class DictionaryEntityResource {
     }
 
     @GetMapping("/dictionary")
-    public List<DictionaryEntity> getDictionary(@RequestParam("section") String section) {
+    public List<DictionaryEntity> getDictionaryBySection(@RequestParam("section") String section) {
         System.out.println(section);
-        List<DictionaryEntity> list = dictionaryEntityRepository.findDictionariesBySection(section.toUpperCase());
-
-        return list;
+        return dictionaryEntityRepository.findDictionariesBySection(section.toUpperCase());
     }
 
     /**

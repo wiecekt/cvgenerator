@@ -1,7 +1,20 @@
 package com.tt.test.service;
 
-import com.tt.test.base.IService;
+import com.tt.test.domain.AdditionalInfoEntity;
 import com.tt.test.domain.EducationEntity;
+import com.tt.test.domain.EmployeeEntity;
+import com.tt.test.service.dto.AdditionalInfoDTO;
+import com.tt.test.service.dto.EducationDTO;
 
-public interface EducationService extends IService<EducationEntity> {
+import java.util.List;
+
+public interface EducationService {
+
+    void create(EducationEntity obj);
+    void create(EducationDTO educationDTO);
+    EmployeeEntity findEmployeeById(Long id);
+    EducationEntity getEducationById(Long id);
+    List<EducationEntity> getAllEducations();
+    void updateEducation(Long id, EducationDTO educationDTO);
+    void deleteEducationById(Long id);
 }

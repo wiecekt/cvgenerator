@@ -1,7 +1,19 @@
 package com.tt.test.service;
 
-import com.tt.test.base.IService;
 import com.tt.test.domain.AbilityEntity;
+import com.tt.test.domain.EmployeeEntity;
+import com.tt.test.service.dto.AbilityDTO;
+import org.springframework.stereotype.Service;
 
-public interface AbilityService extends IService<AbilityEntity> {
+import java.util.List;
+
+@Service
+public interface AbilityService {
+    void create(AbilityEntity obj);
+    void create(AbilityDTO abilityDTO);
+    EmployeeEntity findEmployeeById(Long id);
+    AbilityEntity getAbilityById(Long id);
+    List<AbilityEntity> getAllAbilities();
+    void updateAbility(Long id, AbilityDTO abilityDTO);
+    void deleteAbilityById(Long id);
 }

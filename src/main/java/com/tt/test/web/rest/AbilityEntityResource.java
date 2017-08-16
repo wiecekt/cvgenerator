@@ -4,11 +4,13 @@ import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.AbilityEntity;
 
 import com.tt.test.repository.AbilityEntityRepository;
+import com.tt.test.service.AbilityService;
 import com.tt.test.service.dto.AbilityDTO;
 import com.tt.test.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,17 +31,37 @@ public class AbilityEntityResource {
 
     private static final String ENTITY_NAME = "abilityEntity";
 
-    private final AbilityEntityRepository abilityEntityRepository;
+    private AbilityService abilityService;
 
-    public AbilityEntityResource(AbilityEntityRepository abilityEntityRepository) {
-        this.abilityEntityRepository = abilityEntityRepository;
+    @Autowired
+    public AbilityEntityResource(AbilityService abilityService) {
+        this.abilityService = abilityService;
     }
 
-
-
     @GetMapping("/abilities/{id}")
-    public void getAbilityEntity(@PathVariable("id") Long id) {
+    public AbilityEntity getAbilityEntity(@PathVariable("id") Long id) {
+        return abilityService.getAbilityById(id);
+    }
 
+    @GetMapping("/abilities")
+    public List<AbilityEntity> getAllAbilities() {
+        return abilityService.getAllAbilities();
+    }
+
+    @PostMapping("/abilities")
+    public void createAbility(@RequestBody AbilityDTO abilityDTO) {
+        abilityService.create(abilityDTO);
+    }
+
+    @PutMapping("/abilities/{id}")
+    public void updateAbility(@PathVariable("id") Long id, @RequestBody AbilityDTO abilityDTO) {
+        //podaje sie id ability      @RequestBody DTO jakies
+        abilityService.updateAbility(id, abilityDTO);
+    }
+
+    @DeleteMapping("/abilities/{id}")
+    public void deleteAbility(@PathVariable("id") Long id) {
+        abilityService.deleteAbilityById(id);
     }
 
     /*@GetMapping("/ability-entities/{id}")
@@ -58,7 +80,7 @@ public class AbilityEntityResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new abilityEntity, or with status 400 (Bad Request) if the abilityEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/ability-entities")
+/*    @PostMapping("/ability-entities")
     @Timed
     public ResponseEntity<AbilityEntity> createAbilityEntity(@RequestBody AbilityEntity abilityEntity) throws URISyntaxException {
         log.debug("REST request to save AbilityEntity : {}", abilityEntity);
@@ -69,7 +91,7 @@ public class AbilityEntityResource {
         return ResponseEntity.created(new URI("/api/ability-entities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
-    }
+    }*/
 
     /**
      * PUT  /ability-entities : Updates an existing abilityEntity.
@@ -80,7 +102,7 @@ public class AbilityEntityResource {
      * or with status 500 (Internal Server Error) if the abilityEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/ability-entities")
+/*    @PutMapping("/ability-entities")
     @Timed
     public ResponseEntity<AbilityEntity> updateAbilityEntity(@RequestBody AbilityEntity abilityEntity) throws URISyntaxException {
         log.debug("REST request to update AbilityEntity : {}", abilityEntity);
@@ -91,7 +113,7 @@ public class AbilityEntityResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, abilityEntity.getId().toString()))
             .body(result);
-    }
+    }*/
 
     /**
      * GET  /ability-entities : get all the abilityEntities.
@@ -125,11 +147,11 @@ public class AbilityEntityResource {
      * @param id the id of the abilityEntity to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/ability-entities/{id}")
+/*    @DeleteMapping("/ability-entities/{id}")
     @Timed
     public ResponseEntity<Void> deleteAbilityEntity(@PathVariable Long id) {
         log.debug("REST request to delete AbilityEntity : {}", id);
         abilityEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

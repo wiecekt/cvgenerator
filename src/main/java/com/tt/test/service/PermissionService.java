@@ -1,7 +1,20 @@
 package com.tt.test.service;
 
-import com.tt.test.base.IService;
+import com.tt.test.domain.EmployeeEntity;
+import com.tt.test.domain.HistoryExperienceEntity;
 import com.tt.test.domain.PermissionEntity;
+import com.tt.test.service.dto.HistoryExperienceDTO;
+import com.tt.test.service.dto.PermissionDTO;
 
-public interface PermissionService extends IService<PermissionEntity> {
+import java.util.List;
+
+public interface PermissionService {
+
+    void create(PermissionEntity obj);
+    void create(PermissionDTO permissionDTO);
+    EmployeeEntity findEmployeeById(Long id);
+    PermissionEntity getPermissionById(Long id);
+    List<PermissionEntity> getAllPermissions();
+    void updatePermission(Long id, PermissionDTO permissionDTO);
+    void deletePermissionById(Long id);
 }

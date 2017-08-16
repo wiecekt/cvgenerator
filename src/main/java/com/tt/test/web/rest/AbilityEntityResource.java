@@ -1,24 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.AbilityEntity;
-
-import com.tt.test.repository.AbilityEntityRepository;
 import com.tt.test.service.AbilityService;
 import com.tt.test.service.dto.AbilityDTO;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing AbilityEntity.
@@ -39,7 +30,7 @@ public class AbilityEntityResource {
     }
 
     @GetMapping("/abilities/{id}")
-    public AbilityEntity getAbilityEntity(@PathVariable("id") Long id) {
+    public AbilityEntity getAbility(@PathVariable("id") Long id) {
         return abilityService.getAbilityById(id);
     }
 
@@ -55,7 +46,6 @@ public class AbilityEntityResource {
 
     @PutMapping("/abilities/{id}")
     public void updateAbility(@PathVariable("id") Long id, @RequestBody AbilityDTO abilityDTO) {
-        //podaje sie id ability      @RequestBody DTO jakies
         abilityService.updateAbility(id, abilityDTO);
     }
 

@@ -1,21 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.EducationEntity;
-
-import com.tt.test.repository.EducationEntityRepository;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.tt.test.service.EducationService;
+import com.tt.test.service.dto.EducationDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing EducationEntity.
@@ -28,19 +22,46 @@ public class EducationEntityResource {
 
     private static final String ENTITY_NAME = "educationEntity";
 
-    private final EducationEntityRepository educationEntityRepository;
+    private EducationService educationService;
 
-    public EducationEntityResource(EducationEntityRepository educationEntityRepository) {
-        this.educationEntityRepository = educationEntityRepository;
+    @Autowired
+    public EducationEntityResource(EducationService educationService) {
+        this.educationService = educationService;
     }
 
-    /**
+    @GetMapping("/education/{id}")
+    public EducationEntity getEducation(@PathVariable("id") Long id) {
+        return educationService.getEducationById(id);
+    }
+
+    @GetMapping("/education")
+    public List<EducationEntity> getAllEducation() {
+        return educationService.getAllEducation();
+    }
+
+    @PostMapping("/education")
+    public void createEducation(@RequestBody EducationDTO educationDTO) {
+        educationService.create(educationDTO);
+    }
+
+    @PutMapping("/education/{id}")
+    public void updateEducation(@PathVariable("id") Long id, @RequestBody EducationDTO educationDTO) {
+        educationService.updateEducation(id, educationDTO);
+    }
+
+    @DeleteMapping("/education/{id}")
+    public void deleteAbility(@PathVariable("id") Long id) {
+        educationService.deleteEducationById(id);
+    }
+
+    /*
+    *//**
      * POST  /education-entities : Create a new educationEntity.
      *
      * @param educationEntity the educationEntity to create
      * @return the ResponseEntity with status 201 (Created) and with body the new educationEntity, or with status 400 (Bad Request) if the educationEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PostMapping("/education-entities")
     @Timed
     public ResponseEntity<EducationEntity> createEducationEntity(@RequestBody EducationEntity educationEntity) throws URISyntaxException {
@@ -54,7 +75,7 @@ public class EducationEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /education-entities : Updates an existing educationEntity.
      *
      * @param educationEntity the educationEntity to update
@@ -62,7 +83,7 @@ public class EducationEntityResource {
      * or with status 400 (Bad Request) if the educationEntity is not valid,
      * or with status 500 (Internal Server Error) if the educationEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/education-entities")
     @Timed
     public ResponseEntity<EducationEntity> updateEducationEntity(@RequestBody EducationEntity educationEntity) throws URISyntaxException {
@@ -76,11 +97,11 @@ public class EducationEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /education-entities : get all the educationEntities.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of educationEntities in body
-     */
+     *//*
     @GetMapping("/education-entities")
     @Timed
     public List<EducationEntity> getAllEducationEntities() {
@@ -88,12 +109,12 @@ public class EducationEntityResource {
         return educationEntityRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /education-entities/:id : get the "id" educationEntity.
      *
      * @param id the id of the educationEntity to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the educationEntity, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/education-entities/{id}")
     @Timed
     public ResponseEntity<EducationEntity> getEducationEntity(@PathVariable Long id) {
@@ -102,17 +123,17 @@ public class EducationEntityResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(educationEntity));
     }
 
-    /**
+    *//**
      * DELETE  /education-entities/:id : delete the "id" educationEntity.
      *
      * @param id the id of the educationEntity to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/education-entities/{id}")
     @Timed
     public ResponseEntity<Void> deleteEducationEntity(@PathVariable Long id) {
         log.debug("REST request to delete EducationEntity : {}", id);
         educationEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

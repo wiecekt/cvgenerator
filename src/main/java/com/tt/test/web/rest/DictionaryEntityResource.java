@@ -1,19 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.DictionaryEntity;
-import com.tt.test.repository.DictionaryEntityRepository;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.tt.test.service.DictionaryService;
+import com.tt.test.service.dto.DictionaryDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing DictionaryEntity.
@@ -26,25 +22,50 @@ public class DictionaryEntityResource {
 
     private static final String ENTITY_NAME = "dictionaryEntity";
 
-    private final DictionaryEntityRepository dictionaryEntityRepository;
+    private DictionaryService dictionaryService;
 
-    public DictionaryEntityResource(DictionaryEntityRepository dictionaryEntityRepository) {
-        this.dictionaryEntityRepository = dictionaryEntityRepository;
+    @Autowired
+    public DictionaryEntityResource(DictionaryService dictionaryService) {
+        this.dictionaryService = dictionaryService;
     }
 
-    @GetMapping("/dictionary")
-    public List<DictionaryEntity> getDictionaryBySection(@RequestParam("section") String section) {
-        System.out.println(section);
-        return dictionaryEntityRepository.findDictionariesBySection(section.toUpperCase());
+    @GetMapping("/dictionaries")
+    public List<DictionaryEntity> getDictionaryBySection(@RequestParam("section") String section) { //Moze daje @PathVariable
+        return dictionaryService.getDictionariesBySection(section.toUpperCase());
     }
 
-    /**
+    @GetMapping("/dictionaries/{id}")
+    public DictionaryEntity getDictionary(@PathVariable("id") Long id) {
+        return dictionaryService.getDictionaryById(id);
+    }
+
+    @GetMapping("/dictionaries")
+    public List<DictionaryEntity> getAllDictionaries() {
+        return dictionaryService.getAllDictionaries();
+    }
+
+    @PostMapping("/dictionaries")
+    public void createDictionary(@RequestBody DictionaryDTO dictionaryDTO) {
+        dictionaryService.create(dictionaryDTO);
+    }
+
+    @PutMapping("/dictionaries/{id}")
+    public void updateDictionary(@PathVariable("id") Long id, @RequestBody DictionaryDTO dictionaryDTO) {
+        dictionaryService.updateDictionary(id, dictionaryDTO);
+    }
+
+    @DeleteMapping("/dictionaries/{id}")
+    public void deleteDictionary(@PathVariable("id") Long id) {
+        dictionaryService.deleteDictionaryById(id);
+    }
+/*
+    *//**
      * POST  /dictionary-entities : Create a new dictionaryEntity.
      *
      * @param dictionaryEntity the dictionaryEntity to create
      * @return the ResponseEntity with status 201 (Created) and with body the new dictionaryEntity, or with status 400 (Bad Request) if the dictionaryEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PostMapping("/dictionary-entities")
     @Timed
     public ResponseEntity<DictionaryEntity> createDictionaryEntity(@RequestBody DictionaryEntity dictionaryEntity) throws URISyntaxException {
@@ -58,7 +79,7 @@ public class DictionaryEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /dictionary-entities : Updates an existing dictionaryEntity.
      *
      * @param dictionaryEntity the dictionaryEntity to update
@@ -66,7 +87,7 @@ public class DictionaryEntityResource {
      * or with status 400 (Bad Request) if the dictionaryEntity is not valid,
      * or with status 500 (Internal Server Error) if the dictionaryEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/dictionary-entities")
     @Timed
     public ResponseEntity<DictionaryEntity> updateDictionaryEntity(@RequestBody DictionaryEntity dictionaryEntity) throws URISyntaxException {
@@ -80,11 +101,11 @@ public class DictionaryEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /dictionary-entities : get all the dictionaryEntities.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of dictionaryEntities in body
-     */
+     *//*
     @GetMapping("/dictionary-entities")
     @Timed
     public List<DictionaryEntity> getAllDictionaryEntities() {
@@ -92,12 +113,12 @@ public class DictionaryEntityResource {
         return dictionaryEntityRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /dictionary-entities/:id : get the "id" dictionaryEntity.
      *
      * @param id the id of the dictionaryEntity to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the dictionaryEntity, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/dictionary-entities/{id}")
     @Timed
     public ResponseEntity<DictionaryEntity> getDictionaryEntity(@PathVariable Long id) {
@@ -106,17 +127,17 @@ public class DictionaryEntityResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(dictionaryEntity));
     }
 
-    /**
+    *//**
      * DELETE  /dictionary-entities/:id : delete the "id" dictionaryEntity.
      *
      * @param id the id of the dictionaryEntity to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/dictionary-entities/{id}")
     @Timed
     public ResponseEntity<Void> deleteDictionaryEntity(@PathVariable Long id) {
         log.debug("REST request to delete DictionaryEntity : {}", id);
         dictionaryEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

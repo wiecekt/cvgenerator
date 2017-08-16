@@ -53,7 +53,7 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public List<EducationEntity> getAllEducations() {
+    public List<EducationEntity> getAllEducation() {
         return educationEntityRepository.findAll();
     }
 

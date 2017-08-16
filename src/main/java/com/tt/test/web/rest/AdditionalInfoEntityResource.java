@@ -1,21 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.AdditionalInfoEntity;
-
-import com.tt.test.repository.AdditionalInfoEntityRepository;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.tt.test.service.AdditionalInfoService;
+import com.tt.test.service.dto.AdditionalInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing AdditionalInfoEntity.
@@ -28,10 +22,36 @@ public class AdditionalInfoEntityResource {
 
     private static final String ENTITY_NAME = "additionalInfoEntity";
 
-    private final AdditionalInfoEntityRepository additionalInfoEntityRepository;
+    private AdditionalInfoService additionalInfoService;
 
-    public AdditionalInfoEntityResource(AdditionalInfoEntityRepository additionalInfoEntityRepository) {
-        this.additionalInfoEntityRepository = additionalInfoEntityRepository;
+    @Autowired
+    public AdditionalInfoEntityResource(AdditionalInfoService additionalInfoService) {
+        this.additionalInfoService = additionalInfoService;
+    }
+
+    @GetMapping("/additional-info/{id}")
+    public AdditionalInfoEntity getAdditionalInfo(@PathVariable("id") Long id) {
+        return additionalInfoService.getAdditionalInfoById(id);
+    }
+
+    @GetMapping("/additional-info")
+    public List<AdditionalInfoEntity> getAllAdditionalInfos() {
+        return additionalInfoService.getAllAdditionalInfos();
+    }
+
+    @PostMapping("/additional-info")
+    public void createAdditionalInfo(@RequestBody AdditionalInfoDTO additionalInfoDTO) {
+        additionalInfoService.create(additionalInfoDTO);
+    }
+
+    @PutMapping("/additional-info/{id}")
+    public void updateAdditionalInfo(@PathVariable("id") Long id, @RequestBody AdditionalInfoDTO additionalInfoDTO) {
+        additionalInfoService.updateAdditionalInfo(id, additionalInfoDTO);
+    }
+
+    @DeleteMapping("/additional-info/{id}")
+    public void deleteAdditionalInfo(@PathVariable("id") Long id) {
+        additionalInfoService.deleteAdditionalInfoById(id);
     }
 
     /**
@@ -40,7 +60,6 @@ public class AdditionalInfoEntityResource {
      * @param additionalInfoEntity the additionalInfoEntity to create
      * @return the ResponseEntity with status 201 (Created) and with body the new additionalInfoEntity, or with status 400 (Bad Request) if the additionalInfoEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
     @PostMapping("/additional-info-entities")
     @Timed
     public ResponseEntity<AdditionalInfoEntity> createAdditionalInfoEntity(@RequestBody AdditionalInfoEntity additionalInfoEntity) throws URISyntaxException {
@@ -54,7 +73,7 @@ public class AdditionalInfoEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /additional-info-entities : Updates an existing additionalInfoEntity.
      *
      * @param additionalInfoEntity the additionalInfoEntity to update
@@ -62,7 +81,7 @@ public class AdditionalInfoEntityResource {
      * or with status 400 (Bad Request) if the additionalInfoEntity is not valid,
      * or with status 500 (Internal Server Error) if the additionalInfoEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/additional-info-entities")
     @Timed
     public ResponseEntity<AdditionalInfoEntity> updateAdditionalInfoEntity(@RequestBody AdditionalInfoEntity additionalInfoEntity) throws URISyntaxException {
@@ -76,11 +95,11 @@ public class AdditionalInfoEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /additional-info-entities : get all the additionalInfoEntities.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of additionalInfoEntities in body
-     */
+     *//*
     @GetMapping("/additional-info-entities")
     @Timed
     public List<AdditionalInfoEntity> getAllAdditionalInfoEntities() {
@@ -88,12 +107,12 @@ public class AdditionalInfoEntityResource {
         return additionalInfoEntityRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /additional-info-entities/:id : get the "id" additionalInfoEntity.
      *
      * @param id the id of the additionalInfoEntity to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the additionalInfoEntity, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/additional-info-entities/{id}")
     @Timed
     public ResponseEntity<AdditionalInfoEntity> getAdditionalInfoEntity(@PathVariable Long id) {
@@ -102,17 +121,17 @@ public class AdditionalInfoEntityResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(additionalInfoEntity));
     }
 
-    /**
+    *//**
      * DELETE  /additional-info-entities/:id : delete the "id" additionalInfoEntity.
      *
      * @param id the id of the additionalInfoEntity to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/additional-info-entities/{id}")
     @Timed
     public ResponseEntity<Void> deleteAdditionalInfoEntity(@PathVariable Long id) {
         log.debug("REST request to delete AdditionalInfoEntity : {}", id);
         additionalInfoEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

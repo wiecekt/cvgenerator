@@ -7,7 +7,6 @@ public class UserEntityDTO {
     private String username;
     private String password;
     private AccountType accountType;
-    private Long employeeId;
 
     public String getUsername() {
         return username;
@@ -31,13 +30,5 @@ public class UserEntityDTO {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
     }
 }

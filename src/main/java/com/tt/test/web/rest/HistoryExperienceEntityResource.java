@@ -1,21 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.HistoryExperienceEntity;
-
-import com.tt.test.repository.HistoryExperienceEntityRepository;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.tt.test.service.HistoryExperienceService;
+import com.tt.test.service.dto.HistoryExperienceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing HistoryExperienceEntity.
@@ -28,19 +22,46 @@ public class HistoryExperienceEntityResource {
 
     private static final String ENTITY_NAME = "historyExperienceEntity";
 
-    private final HistoryExperienceEntityRepository historyExperienceEntityRepository;
+    private HistoryExperienceService historyExperienceService;
 
-    public HistoryExperienceEntityResource(HistoryExperienceEntityRepository historyExperienceEntityRepository) {
-        this.historyExperienceEntityRepository = historyExperienceEntityRepository;
+    @Autowired
+    public HistoryExperienceEntityResource(HistoryExperienceService historyExperienceService) {
+        this.historyExperienceService = historyExperienceService;
     }
 
-    /**
+    @GetMapping("/history-experiences/{id}")
+    public HistoryExperienceEntity getHistoryExperience(@PathVariable("id") Long id) {
+        return historyExperienceService.getHistoryExperienceById(id);
+    }
+
+    @GetMapping("/history-experiences")
+    public List<HistoryExperienceEntity> getAllHistoryExperiences() {
+        return historyExperienceService.getAllHistoryExperiences();
+    }
+
+    @PostMapping("/history-experiences")
+    public void createHistoryExperience(@RequestBody HistoryExperienceDTO historyExperienceDTO) {
+        historyExperienceService.create(historyExperienceDTO);
+    }
+
+    @PutMapping("/history-experiences/{id}")
+    public void updateHistoryExperience(@PathVariable("id") Long id, @RequestBody HistoryExperienceDTO historyExperienceDTO) {
+        historyExperienceService.updateHistoryExperience(id, historyExperienceDTO);
+    }
+
+    @DeleteMapping("/history-experiences/{id}")
+    public void deleteHistoryExperience(@PathVariable("id") Long id) {
+        historyExperienceService.deleteHistoryExperienceById(id);
+    }
+
+    /*
+    *//**
      * POST  /history-experience-entities : Create a new historyExperienceEntity.
      *
      * @param historyExperienceEntity the historyExperienceEntity to create
      * @return the ResponseEntity with status 201 (Created) and with body the new historyExperienceEntity, or with status 400 (Bad Request) if the historyExperienceEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PostMapping("/history-experience-entities")
     @Timed
     public ResponseEntity<HistoryExperienceEntity> createHistoryExperienceEntity(@RequestBody HistoryExperienceEntity historyExperienceEntity) throws URISyntaxException {
@@ -54,7 +75,7 @@ public class HistoryExperienceEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /history-experience-entities : Updates an existing historyExperienceEntity.
      *
      * @param historyExperienceEntity the historyExperienceEntity to update
@@ -62,7 +83,7 @@ public class HistoryExperienceEntityResource {
      * or with status 400 (Bad Request) if the historyExperienceEntity is not valid,
      * or with status 500 (Internal Server Error) if the historyExperienceEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/history-experience-entities")
     @Timed
     public ResponseEntity<HistoryExperienceEntity> updateHistoryExperienceEntity(@RequestBody HistoryExperienceEntity historyExperienceEntity) throws URISyntaxException {
@@ -76,11 +97,11 @@ public class HistoryExperienceEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /history-experience-entities : get all the historyExperienceEntities.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of historyExperienceEntities in body
-     */
+     *//*
     @GetMapping("/history-experience-entities")
     @Timed
     public List<HistoryExperienceEntity> getAllHistoryExperienceEntities() {
@@ -88,12 +109,12 @@ public class HistoryExperienceEntityResource {
         return historyExperienceEntityRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /history-experience-entities/:id : get the "id" historyExperienceEntity.
      *
      * @param id the id of the historyExperienceEntity to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the historyExperienceEntity, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/history-experience-entities/{id}")
     @Timed
     public ResponseEntity<HistoryExperienceEntity> getHistoryExperienceEntity(@PathVariable Long id) {
@@ -102,17 +123,17 @@ public class HistoryExperienceEntityResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(historyExperienceEntity));
     }
 
-    /**
+    *//**
      * DELETE  /history-experience-entities/:id : delete the "id" historyExperienceEntity.
      *
      * @param id the id of the historyExperienceEntity to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/history-experience-entities/{id}")
     @Timed
     public ResponseEntity<Void> deleteHistoryExperienceEntity(@PathVariable Long id) {
         log.debug("REST request to delete HistoryExperienceEntity : {}", id);
         historyExperienceEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package com.tt.test.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.joda.time.LocalDate;
 
 public class SmallEmployeeDTO {
@@ -8,9 +9,11 @@ public class SmallEmployeeDTO {
     private String department;
     private String division;
     private String address;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
     private String email;
     private String telephone;
+    private Long userId;
 
     public String getName() {
         return name;
@@ -74,5 +77,13 @@ public class SmallEmployeeDTO {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

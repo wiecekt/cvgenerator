@@ -1,6 +1,5 @@
 package com.tt.test.service.impl;
 
-import com.tt.test.domain.EmployeeEntity;
 import com.tt.test.domain.UserEntity;
 import com.tt.test.repository.EmployeeEntityRepository;
 import com.tt.test.repository.UserEntityRepository;
@@ -34,17 +33,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Override
     public void create(UserEntityDTO userEntityDTO) {
-        //sprawdz czy istnieje
-        EmployeeEntity employeeById = findEmployeeById(userEntityDTO.getEmployeeId());
         UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
-        userEntity.setEmployeeEntity(employeeById);
-
         userEntityRepository.save(userEntity);
-    }
-
-    @Override
-    public EmployeeEntity findEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
     }
 
     @Override
@@ -63,9 +53,6 @@ public class UserEntityServiceImpl implements UserEntityService {
         UserEntity userById = getUserById(id);
         UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
         userEntity.setId(userById.getId());
-
-        EmployeeEntity employeeById = findEmployeeById(userEntityDTO.getEmployeeId());
-        userEntity.setEmployeeEntity(employeeById);
 
         userEntityRepository.save(userEntity);
     }

@@ -1,21 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.LanguageEntity;
-
-import com.tt.test.repository.LanguageEntityRepository;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.tt.test.service.LanguageService;
+import com.tt.test.service.dto.LanguageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing LanguageEntity.
@@ -28,19 +22,46 @@ public class LanguageEntityResource {
 
     private static final String ENTITY_NAME = "languageEntity";
 
-    private final LanguageEntityRepository languageEntityRepository;
+    private LanguageService languageService;
 
-    public LanguageEntityResource(LanguageEntityRepository languageEntityRepository) {
-        this.languageEntityRepository = languageEntityRepository;
+    @Autowired
+    public LanguageEntityResource(LanguageService languageService) {
+        this.languageService = languageService;
     }
 
-    /**
+    @GetMapping("/languages/{id}")
+    public LanguageEntity getLanguage(@PathVariable("id") Long id) {
+        return languageService.getLanguageById(id);
+    }
+
+    @GetMapping("/languages")
+    public List<LanguageEntity> getAllLanguages() {
+        return languageService.getAllLanguages();
+    }
+
+    @PostMapping("/languages")
+    public void createLanguage(@RequestBody LanguageDTO languageDTO) {
+        languageService.create(languageDTO);
+    }
+
+    @PutMapping("/languages/{id}")
+    public void updateLanguage(@PathVariable("id") Long id, @RequestBody LanguageDTO languageDTO) {
+        languageService.updateLanguage(id, languageDTO);
+    }
+
+    @DeleteMapping("/languages/{id}")
+    public void deleteLanguage(@PathVariable("id") Long id) {
+        languageService.deleteLanguageById(id);
+    }
+
+    /*
+    *//**
      * POST  /language-entities : Create a new languageEntity.
      *
      * @param languageEntity the languageEntity to create
      * @return the ResponseEntity with status 201 (Created) and with body the new languageEntity, or with status 400 (Bad Request) if the languageEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PostMapping("/language-entities")
     @Timed
     public ResponseEntity<LanguageEntity> createLanguageEntity(@RequestBody LanguageEntity languageEntity) throws URISyntaxException {
@@ -54,7 +75,7 @@ public class LanguageEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /language-entities : Updates an existing languageEntity.
      *
      * @param languageEntity the languageEntity to update
@@ -62,7 +83,7 @@ public class LanguageEntityResource {
      * or with status 400 (Bad Request) if the languageEntity is not valid,
      * or with status 500 (Internal Server Error) if the languageEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/language-entities")
     @Timed
     public ResponseEntity<LanguageEntity> updateLanguageEntity(@RequestBody LanguageEntity languageEntity) throws URISyntaxException {
@@ -76,11 +97,11 @@ public class LanguageEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /language-entities : get all the languageEntities.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of languageEntities in body
-     */
+     *//*
     @GetMapping("/language-entities")
     @Timed
     public List<LanguageEntity> getAllLanguageEntities() {
@@ -88,12 +109,12 @@ public class LanguageEntityResource {
         return languageEntityRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /language-entities/:id : get the "id" languageEntity.
      *
      * @param id the id of the languageEntity to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the languageEntity, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/language-entities/{id}")
     @Timed
     public ResponseEntity<LanguageEntity> getLanguageEntity(@PathVariable Long id) {
@@ -102,17 +123,17 @@ public class LanguageEntityResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(languageEntity));
     }
 
-    /**
+    *//**
      * DELETE  /language-entities/:id : delete the "id" languageEntity.
      *
      * @param id the id of the languageEntity to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/language-entities/{id}")
     @Timed
     public ResponseEntity<Void> deleteLanguageEntity(@PathVariable Long id) {
         log.debug("REST request to delete LanguageEntity : {}", id);
         languageEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

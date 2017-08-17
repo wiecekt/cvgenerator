@@ -2,6 +2,7 @@ package com.tt.test.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.tt.test.domain.enumeration.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cache;
@@ -10,8 +11,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-
-import com.tt.test.domain.enumeration.AccountType;
 
 /**
  * A UserEntity.
@@ -131,6 +130,7 @@ public class UserEntity implements Serializable {
             ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
             ", accountType='" + getAccountType() + "'" +
+            ", employeeEntity='" + getEmployeeEntity() + "'" +
             "}";
     }
 }

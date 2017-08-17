@@ -1,3 +1,4 @@
+/*
 package com.tt.test.web.rest;
 
 import com.tt.test.config.Constants;
@@ -29,6 +30,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 
+*/
 /**
  * REST controller for managing users.
  * <p>
@@ -52,7 +54,8 @@ import java.util.*;
  * </ul>
  * <p>
  * Another option would be to have a specific JPA entity graph to handle this case.
- */
+ *//*
+
 @RestController
 @RequestMapping("/api")
 public class UserResource {
@@ -75,7 +78,8 @@ public class UserResource {
         this.userService = userService;
     }
 
-    /**
+    */
+/**
      * POST  /users  : Creates a new user.
      * <p>
      * Creates a new user if the login and email are not already used, and sends an
@@ -85,7 +89,8 @@ public class UserResource {
      * @param managedUserVM the user to create
      * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
+
     @PostMapping("/users")
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
@@ -114,14 +119,16 @@ public class UserResource {
         }
     }
 
-    /**
+    */
+/**
      * PUT  /users : Updates an existing User.
      *
      * @param managedUserVM the user to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated user,
      * or with status 400 (Bad Request) if the login or email is already in use,
      * or with status 500 (Internal Server Error) if the user couldn't be updated
-     */
+     *//*
+
     @PutMapping("/users")
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
@@ -141,12 +148,14 @@ public class UserResource {
             HeaderUtil.createAlert("userManagement.updated", managedUserVM.getLogin()));
     }
 
-    /**
+    */
+/**
      * GET  /users : get all users.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body all users
-     */
+     *//*
+
     @GetMapping("/users")
     @Timed
     public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable) {
@@ -155,9 +164,11 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
+    */
+/**
      * @return a string list of the all of the roles
-     */
+     *//*
+
     @GetMapping("/users/authorities")
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
@@ -165,12 +176,14 @@ public class UserResource {
         return userService.getAuthorities();
     }
 
-    /**
+    */
+/**
      * GET  /users/:login : get the "login" user.
      *
      * @param login the login of the user to find
      * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
-     */
+     *//*
+
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
     @Timed
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
@@ -180,12 +193,14 @@ public class UserResource {
                 .map(UserDTO::new));
     }
 
-    /**
+    */
+/**
      * DELETE /users/:login : delete the "login" User.
      *
      * @param login the login of the user to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
+
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
@@ -195,3 +210,4 @@ public class UserResource {
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
     }
 }
+*/

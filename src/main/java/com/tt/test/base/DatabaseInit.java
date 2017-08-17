@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -53,8 +52,8 @@ public class DatabaseInit {
             new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "A2"),
             new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "B1"),
             new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "B2"),
-            new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "C1"),
-            new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "C2")
+            new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "C1")
+            //new DictionaryEntity(null, SectionType.LANGUAGE, "languageLevel", "C2")
 
         );
         dictionaryEntities.forEach(dictionaryService::create);

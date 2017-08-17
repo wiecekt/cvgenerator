@@ -1,10 +1,13 @@
 package com.tt.test.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.joda.time.LocalDate;
 
 public class EducationDTO {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate educationStartDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate educationEndDate;
     private Boolean isLearning;
     private String schoolName;

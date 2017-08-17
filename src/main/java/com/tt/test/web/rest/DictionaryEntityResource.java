@@ -29,8 +29,8 @@ public class DictionaryEntityResource {
         this.dictionaryService = dictionaryService;
     }
 
-    @GetMapping("/dictionaries")
-    public List<DictionaryEntity> getDictionaryBySection(@RequestParam("section") String section) { //Moze daje @PathVariable
+    @GetMapping("/dictionaries/{section}")
+    public List<DictionaryEntity> getDictionaryBySection(@PathVariable("section") String section) {
         return dictionaryService.getDictionariesBySection(section.toUpperCase());
     }
 

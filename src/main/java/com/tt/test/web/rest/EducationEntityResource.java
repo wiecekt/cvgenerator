@@ -50,7 +50,7 @@ public class EducationEntityResource {
     }
 
     @DeleteMapping("/education/{id}")
-    public void deleteAbility(@PathVariable("id") Long id) {
+    public void deleteEducation(@PathVariable("id") Long id) {
         educationService.deleteEducationById(id);
     }
 

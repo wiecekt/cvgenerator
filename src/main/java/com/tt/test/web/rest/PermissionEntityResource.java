@@ -1,21 +1,15 @@
 package com.tt.test.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.tt.test.domain.PermissionEntity;
-
-import com.tt.test.repository.PermissionEntityRepository;
-import com.tt.test.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.tt.test.service.PermissionService;
+import com.tt.test.service.dto.PermissionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing PermissionEntity.
@@ -28,19 +22,46 @@ public class PermissionEntityResource {
 
     private static final String ENTITY_NAME = "permissionEntity";
 
-    private final PermissionEntityRepository permissionEntityRepository;
+    private PermissionService permissionService;
 
-    public PermissionEntityResource(PermissionEntityRepository permissionEntityRepository) {
-        this.permissionEntityRepository = permissionEntityRepository;
+    @Autowired
+    public PermissionEntityResource(PermissionService permissionService) {
+        this.permissionService = permissionService;
     }
 
-    /**
+    @GetMapping("/permissions/{id}")
+    public PermissionEntity getPermission(@PathVariable("id") Long id) {
+        return permissionService.getPermissionById(id);
+    }
+
+    @GetMapping("/permissions")
+    public List<PermissionEntity> getAllPermissions() {
+        return permissionService.getAllPermissions();
+    }
+
+    @PostMapping("/permissions")
+    public void createPermission(@RequestBody PermissionDTO permissionDTO) {
+        permissionService.create(permissionDTO);
+    }
+
+    @PutMapping("/permissions/{id}")
+    public void updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDTO permissionDTO) {
+        permissionService.updatePermission(id, permissionDTO);
+    }
+
+    @DeleteMapping("/permissions/{id}")
+    public void deletePermission(@PathVariable("id") Long id) {
+        permissionService.deletePermissionById(id);
+    }
+
+    /*
+    *//**
      * POST  /permission-entities : Create a new permissionEntity.
      *
      * @param permissionEntity the permissionEntity to create
      * @return the ResponseEntity with status 201 (Created) and with body the new permissionEntity, or with status 400 (Bad Request) if the permissionEntity has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PostMapping("/permission-entities")
     @Timed
     public ResponseEntity<PermissionEntity> createPermissionEntity(@RequestBody PermissionEntity permissionEntity) throws URISyntaxException {
@@ -54,7 +75,7 @@ public class PermissionEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /permission-entities : Updates an existing permissionEntity.
      *
      * @param permissionEntity the permissionEntity to update
@@ -62,7 +83,7 @@ public class PermissionEntityResource {
      * or with status 400 (Bad Request) if the permissionEntity is not valid,
      * or with status 500 (Internal Server Error) if the permissionEntity couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/permission-entities")
     @Timed
     public ResponseEntity<PermissionEntity> updatePermissionEntity(@RequestBody PermissionEntity permissionEntity) throws URISyntaxException {
@@ -76,11 +97,11 @@ public class PermissionEntityResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /permission-entities : get all the permissionEntities.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of permissionEntities in body
-     */
+     *//*
     @GetMapping("/permission-entities")
     @Timed
     public List<PermissionEntity> getAllPermissionEntities() {
@@ -88,12 +109,12 @@ public class PermissionEntityResource {
         return permissionEntityRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /permission-entities/:id : get the "id" permissionEntity.
      *
      * @param id the id of the permissionEntity to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the permissionEntity, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/permission-entities/{id}")
     @Timed
     public ResponseEntity<PermissionEntity> getPermissionEntity(@PathVariable Long id) {
@@ -102,17 +123,17 @@ public class PermissionEntityResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(permissionEntity));
     }
 
-    /**
+    *//**
      * DELETE  /permission-entities/:id : delete the "id" permissionEntity.
      *
      * @param id the id of the permissionEntity to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/permission-entities/{id}")
     @Timed
     public ResponseEntity<Void> deletePermissionEntity(@PathVariable Long id) {
         log.debug("REST request to delete PermissionEntity : {}", id);
         permissionEntityRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }

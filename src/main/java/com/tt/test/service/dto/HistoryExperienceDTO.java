@@ -1,9 +1,13 @@
 package com.tt.test.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.joda.time.LocalDate;
 
 public class HistoryExperienceDTO {
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate historyStartDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate historyEndDate;
     private Boolean isWorking;
     private String companyName;

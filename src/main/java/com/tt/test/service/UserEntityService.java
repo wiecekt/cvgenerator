@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserEntityService {
 
-    void create(UserEntity obj);
+    UserEntity create(UserEntity obj);
     void create(UserEntityDTO userEntityDTO);
     UserEntity getUserById(Long id);
     List<UserEntity> getAllUsers();

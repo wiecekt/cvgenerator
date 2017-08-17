@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface AbilityService {
-    void create(AbilityEntity obj);
+    AbilityEntity create(AbilityEntity obj);
     void create(AbilityDTO abilityDTO);
     EmployeeEntity findEmployeeById(Long id);
     AbilityEntity getAbilityById(Long id);

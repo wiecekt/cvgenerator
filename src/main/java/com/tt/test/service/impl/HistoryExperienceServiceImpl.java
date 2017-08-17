@@ -28,8 +28,8 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
     }
 
     @Override
-    public void create(HistoryExperienceEntity obj) {
-        historyExperienceEntityRepository.save(obj);
+    public HistoryExperienceEntity create(HistoryExperienceEntity obj) {
+        return historyExperienceEntityRepository.save(obj);
     }
 
     @Override

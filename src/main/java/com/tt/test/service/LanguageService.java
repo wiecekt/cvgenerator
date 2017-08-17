@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LanguageService {
 
-    void create(LanguageEntity obj);
+    LanguageEntity create(LanguageEntity obj);
     void create(LanguageDTO languageDTO);
     EmployeeEntity findEmployeeById(Long id);
     LanguageEntity getLanguageById(Long id);

@@ -1,8 +1,8 @@
 package com.tt.test.service.mapper;
 
 import com.tt.test.domain.EmployeeEntity;
+import com.tt.test.service.dto.BasicEmployeeDTO;
 import com.tt.test.service.dto.EmployeeDTO;
-import com.tt.test.service.dto.SmallEmployeeDTO;
 import fr.xebia.extras.selma.Mapper;
 import org.joda.time.LocalDate;
 
@@ -16,10 +16,13 @@ import org.joda.time.LocalDate;
         "additionalInfoEntities",
         "permissionEntities",
         "projectEntities",
-        "languageEntities"
+        "languageEntities",
+        "userId",
+        "userEntityDTO"
     })
 
-public interface EmployeeMapper {
+public interface BasicEmployeeMapper {
 
-    EmployeeEntity asEmployeeEntity(SmallEmployeeDTO in);
+    EmployeeEntity asEmployeeEntity(BasicEmployeeDTO in);
+    EmployeeEntity asEmployeeEntity(EmployeeDTO in);
 }

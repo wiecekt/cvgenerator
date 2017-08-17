@@ -28,8 +28,8 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public void create(PermissionEntity obj) {
-        permissionEntityRepository.save(obj);
+    public PermissionEntity create(PermissionEntity obj) {
+        return permissionEntityRepository.save(obj);
     }
 
     @Override

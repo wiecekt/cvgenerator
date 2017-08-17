@@ -28,8 +28,8 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public void create(LanguageEntity obj) {
-        languageEntityRepository.save(obj);
+    public LanguageEntity create(LanguageEntity obj) {
+        return languageEntityRepository.save(obj);
     }
 
     @Override

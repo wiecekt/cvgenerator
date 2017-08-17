@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface EducationService {
 
-    void create(EducationEntity obj);
+    EducationEntity create(EducationEntity obj);
     void create(EducationDTO educationDTO);
     EmployeeEntity findEmployeeById(Long id);
     EducationEntity getEducationById(Long id);

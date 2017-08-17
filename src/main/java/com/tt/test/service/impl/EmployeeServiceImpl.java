@@ -2,11 +2,12 @@ package com.tt.test.service.impl;
 
 import com.tt.test.domain.*;
 import com.tt.test.repository.EmployeeEntityRepository;
-import com.tt.test.repository.UserEntityRepository;
-import com.tt.test.service.EmployeeService;
+import com.tt.test.service.*;
+import com.tt.test.service.dto.BasicEmployeeDTO;
 import com.tt.test.service.dto.EmployeeDTO;
-import com.tt.test.service.dto.SmallEmployeeDTO;
-import com.tt.test.service.mapper.EmployeeMapper;
+import com.tt.test.service.dto.SearchEmployeeDTO;
+import com.tt.test.service.mapper.BasicEmployeeMapper;
+import com.tt.test.service.mapper.UserEntityMapper;
 import fr.xebia.extras.selma.Selma;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,42 +19,61 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeEntityRepository employeeEntityRepository;
-    private UserEntityRepository userEntityRepository;
-    private EmployeeMapper employeeMapper;
+
+    private UserEntityService userEntityService;
+    private HistoryExperienceService historyExperienceService;
+    private EducationService educationService;
+    private AbilityService abilityService;
+    private AdditionalInfoService additionalInfoService;
+    private PermissionService permissionService;
+    private ProjectService projectService;
+    private LanguageService languageService;
+
+    private BasicEmployeeMapper basicEmployeeMapper;
+    private UserEntityMapper userEntityMapper;
 
     @PersistenceContext
     EntityManager em;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeEntityRepository employeeEntityRepository, UserEntityRepository userEntityRepository) {
+    public EmployeeServiceImpl(EmployeeEntityRepository employeeEntityRepository, UserEntityService userEntityService,
+                               HistoryExperienceService historyExperienceService, EducationService educationService,
+                               AbilityService abilityService, AdditionalInfoService additionalInfoService,
+                               PermissionService permissionService, ProjectService projectService,
+                               LanguageService languageService) {
         this.employeeEntityRepository = employeeEntityRepository;
-        this.userEntityRepository = userEntityRepository;
-        this.employeeMapper = Selma.builder(EmployeeMapper.class).build();
+        this.userEntityService = userEntityService;
+        this.historyExperienceService = historyExperienceService;
+        this.educationService = educationService;
+        this.abilityService = abilityService;
+        this.additionalInfoService = additionalInfoService;
+        this.permissionService = permissionService;
+        this.projectService = projectService;
+        this.languageService = languageService;
+        this.basicEmployeeMapper = Selma.builder(BasicEmployeeMapper.class).build();
+        this.userEntityMapper = Selma.builder(UserEntityMapper.class).build();
     }
 
     @Override
-    public void create(EmployeeEntity obj) {
-        employeeEntityRepository.save(obj);
+    public EmployeeEntity create(EmployeeEntity obj) {
+        return employeeEntityRepository.save(obj);
     }
 
     @Override
-    public void create(SmallEmployeeDTO smallEmployeeDTO) {
+    public void create(BasicEmployeeDTO basicEmployeeDTO) {
         //sprawdz czy istnieje
-        UserEntity userById = findUserById(smallEmployeeDTO.getUserId());
-        EmployeeEntity employeeEntity = employeeMapper.asEmployeeEntity(smallEmployeeDTO);
+        UserEntity userById = userEntityService.getUserById(basicEmployeeDTO.getUserId());
+        EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(basicEmployeeDTO);
         employeeEntity.setUserEntity(userById);
 
         employeeEntityRepository.save(employeeEntity);
-    }
-
-    @Override
-    public UserEntity findUserById(Long id) {
-        return userEntityRepository.findOne(id);
     }
 
     @Override
@@ -67,7 +87,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeEntity> searchEmployees(EmployeeDTO employeeDTO) {
+    public List<EmployeeEntity> searchEmployees(SearchEmployeeDTO searchEmployeeDTO) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<EmployeeEntity> query = builder.createQuery(EmployeeEntity.class);
 
@@ -84,82 +104,82 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Predicate> conditions = new ArrayList<>();
 
         //employee
-        if(employeeDTO.getName() != null && StringUtils.isNotEmpty(employeeDTO.getName()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.name), employeeDTO.getName()));
-        if (employeeDTO.getSurname() != null && StringUtils.isNotEmpty(employeeDTO.getSurname()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.surname), employeeDTO.getSurname()));
-        if(employeeDTO.getDepartment() != null && StringUtils.isNotEmpty(employeeDTO.getDepartment()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.department), employeeDTO.getDepartment()));
-        if(employeeDTO.getDivision() != null && StringUtils.isNotEmpty(employeeDTO.getDivision()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.division), employeeDTO.getDivision()));
-        if(employeeDTO.getAddress() != null && StringUtils.isNotEmpty(employeeDTO.getAddress()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.address), employeeDTO.getAddress()));
-        if(employeeDTO.getDateOfBirth() != null)
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.dateOfBirth), employeeDTO.getDateOfBirth()));
-        if(employeeDTO.getEmail() != null && StringUtils.isNotEmpty(employeeDTO.getEmail()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.email), employeeDTO.getEmail()));
-        if(employeeDTO.getTelephone() != null && StringUtils.isNotEmpty(employeeDTO.getTelephone()))
-            conditions.add(builder.equal(employees.get(EmployeeEntity_.telephone), employeeDTO.getTelephone()));
+        if(searchEmployeeDTO.getName() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getName()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.name), searchEmployeeDTO.getName()));
+        if (searchEmployeeDTO.getSurname() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getSurname()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.surname), searchEmployeeDTO.getSurname()));
+        if(searchEmployeeDTO.getDepartment() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getDepartment()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.department), searchEmployeeDTO.getDepartment()));
+        if(searchEmployeeDTO.getDivision() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getDivision()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.division), searchEmployeeDTO.getDivision()));
+        if(searchEmployeeDTO.getAddress() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getAddress()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.address), searchEmployeeDTO.getAddress()));
+        if(searchEmployeeDTO.getDateOfBirth() != null)
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.dateOfBirth), searchEmployeeDTO.getDateOfBirth()));
+        if(searchEmployeeDTO.getEmail() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getEmail()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.email), searchEmployeeDTO.getEmail()));
+        if(searchEmployeeDTO.getTelephone() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getTelephone()))
+            conditions.add(builder.equal(employees.get(EmployeeEntity_.telephone), searchEmployeeDTO.getTelephone()));
 
         //historyExperience
-        if(employeeDTO.getHistoryStartDate() != null)
-            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.historyStartDate), employeeDTO.getHistoryStartDate()));
-        if(employeeDTO.getHistoryEndDate() != null)
-            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.historyEndDate), employeeDTO.getHistoryEndDate()));
-        if(employeeDTO.getIsWorking() != null)
-            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.isWorking), employeeDTO.getIsWorking()));
-        if(employeeDTO.getCompanyName() != null && StringUtils.isNotEmpty(employeeDTO.getCompanyName()))
-            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.companyName), employeeDTO.getCompanyName()));
-        if(employeeDTO.getPosition() != null && StringUtils.isNotEmpty(employeeDTO.getPosition()))
-            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.position), employeeDTO.getPosition()));
-        if(employeeDTO.getHistoryDescription() != null && StringUtils.isNotEmpty(employeeDTO.getHistoryDescription()))
-            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.historyDescription), employeeDTO.getHistoryDescription()));
+        if(searchEmployeeDTO.getHistoryStartDate() != null)
+            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.historyStartDate), searchEmployeeDTO.getHistoryStartDate()));
+        if(searchEmployeeDTO.getHistoryEndDate() != null)
+            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.historyEndDate), searchEmployeeDTO.getHistoryEndDate()));
+        if(searchEmployeeDTO.getIsWorking() != null)
+            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.isWorking), searchEmployeeDTO.getIsWorking()));
+        if(searchEmployeeDTO.getCompanyName() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getCompanyName()))
+            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.companyName), searchEmployeeDTO.getCompanyName()));
+        if(searchEmployeeDTO.getPosition() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getPosition()))
+            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.position), searchEmployeeDTO.getPosition()));
+        if(searchEmployeeDTO.getHistoryDescription() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getHistoryDescription()))
+            conditions.add(builder.equal(historyExperienceEntities.get(HistoryExperienceEntity_.historyDescription), searchEmployeeDTO.getHistoryDescription()));
 
         //education
-        if(employeeDTO.getEducationStartDate() != null)
-            conditions.add(builder.equal(educationEntities.get(EducationEntity_.educationStartDate), employeeDTO.getEducationStartDate()));
-        if(employeeDTO.getEducationEndDate() != null)
-            conditions.add(builder.equal(educationEntities.get(EducationEntity_.educationEndDate), employeeDTO.getEducationEndDate()));
-        if(employeeDTO.getIsLearning() != null)
-            conditions.add(builder.equal(educationEntities.get(EducationEntity_.isLearning), employeeDTO.getIsLearning()));
-        if(employeeDTO.getSchoolName() != null && StringUtils.isNotEmpty(employeeDTO.getSchoolName()))
-            conditions.add(builder.equal(educationEntities.get(EducationEntity_.schoolName), employeeDTO.getSchoolName()));
-        if(employeeDTO.getSubject() != null && StringUtils.isNotEmpty(employeeDTO.getSubject()))
-            conditions.add(builder.equal(educationEntities.get(EducationEntity_.subject), employeeDTO.getSubject()));
-        if(employeeDTO.getEducationDescription() != null && StringUtils.isNotEmpty(employeeDTO.getEducationDescription()))
-            conditions.add(builder.equal(educationEntities.get(EducationEntity_.educationDescription), employeeDTO.getEducationDescription()));
+        if(searchEmployeeDTO.getEducationStartDate() != null)
+            conditions.add(builder.equal(educationEntities.get(EducationEntity_.educationStartDate), searchEmployeeDTO.getEducationStartDate()));
+        if(searchEmployeeDTO.getEducationEndDate() != null)
+            conditions.add(builder.equal(educationEntities.get(EducationEntity_.educationEndDate), searchEmployeeDTO.getEducationEndDate()));
+        if(searchEmployeeDTO.getIsLearning() != null)
+            conditions.add(builder.equal(educationEntities.get(EducationEntity_.isLearning), searchEmployeeDTO.getIsLearning()));
+        if(searchEmployeeDTO.getSchoolName() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getSchoolName()))
+            conditions.add(builder.equal(educationEntities.get(EducationEntity_.schoolName), searchEmployeeDTO.getSchoolName()));
+        if(searchEmployeeDTO.getSubject() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getSubject()))
+            conditions.add(builder.equal(educationEntities.get(EducationEntity_.subject), searchEmployeeDTO.getSubject()));
+        if(searchEmployeeDTO.getEducationDescription() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getEducationDescription()))
+            conditions.add(builder.equal(educationEntities.get(EducationEntity_.educationDescription), searchEmployeeDTO.getEducationDescription()));
 
         //ability
-        if(employeeDTO.getAbilityType() != null && StringUtils.isNotEmpty(employeeDTO.getAbilityType()))
-            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.abilityType), employeeDTO.getAbilityType()));
-        if(employeeDTO.getAbilityLevel() != null && StringUtils.isNotEmpty(employeeDTO.getAbilityLevel()))
-            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.abilityLevel), employeeDTO.getAbilityLevel()));
-        if(employeeDTO.getExperience() != null && StringUtils.isNotEmpty(employeeDTO.getExperience()))
-            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.experience), employeeDTO.getExperience()));
-        if(employeeDTO.getAbilityDescription() != null && StringUtils.isNotEmpty(employeeDTO.getAbilityDescription()))
-            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.abilityDescription), employeeDTO.getAbilityDescription()));
+        if(searchEmployeeDTO.getAbilityType() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getAbilityType()))
+            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.abilityType), searchEmployeeDTO.getAbilityType()));
+        if(searchEmployeeDTO.getAbilityLevel() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getAbilityLevel()))
+            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.abilityLevel), searchEmployeeDTO.getAbilityLevel()));
+        if(searchEmployeeDTO.getExperience() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getExperience()))
+            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.experience), searchEmployeeDTO.getExperience()));
+        if(searchEmployeeDTO.getAbilityDescription() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getAbilityDescription()))
+            conditions.add(builder.equal(abilityEntities.get(AbilityEntity_.abilityDescription), searchEmployeeDTO.getAbilityDescription()));
 
         //additionalInfo
-        if(employeeDTO.getAdditionalInfoName() != null && StringUtils.isNotEmpty(employeeDTO.getAdditionalInfoName()))
-            conditions.add(builder.equal(additionalInfoEntities.get(AdditionalInfoEntity_.additionalInfoName), employeeDTO.getAdditionalInfoName()));
-        if(employeeDTO.getAdditionalInfoValue() != null && StringUtils.isNotEmpty(employeeDTO.getAdditionalInfoValue()))
-            conditions.add(builder.equal(additionalInfoEntities.get(AdditionalInfoEntity_.additionalInfoValue), employeeDTO.getAdditionalInfoValue()));
+        if(searchEmployeeDTO.getAdditionalInfoName() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getAdditionalInfoName()))
+            conditions.add(builder.equal(additionalInfoEntities.get(AdditionalInfoEntity_.additionalInfoName), searchEmployeeDTO.getAdditionalInfoName()));
+        if(searchEmployeeDTO.getAdditionalInfoValue() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getAdditionalInfoValue()))
+            conditions.add(builder.equal(additionalInfoEntities.get(AdditionalInfoEntity_.additionalInfoValue), searchEmployeeDTO.getAdditionalInfoValue()));
 
         //permission
-        if(employeeDTO.getPermissionsName() != null && StringUtils.isNotEmpty(employeeDTO.getPermissionsName()))
-            conditions.add(builder.equal(permissionEntities.get(PermissionEntity_.permissionsName), employeeDTO.getPermissionsName()));
-        if(employeeDTO.getPermissionsValue() != null && StringUtils.isNotEmpty(employeeDTO.getPermissionsValue()))
-            conditions.add(builder.equal(permissionEntities.get(PermissionEntity_.permissionsValue), employeeDTO.getPermissionsValue()));
+        if(searchEmployeeDTO.getPermissionsName() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getPermissionsName()))
+            conditions.add(builder.equal(permissionEntities.get(PermissionEntity_.permissionsName), searchEmployeeDTO.getPermissionsName()));
+        if(searchEmployeeDTO.getPermissionsValue() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getPermissionsValue()))
+            conditions.add(builder.equal(permissionEntities.get(PermissionEntity_.permissionsValue), searchEmployeeDTO.getPermissionsValue()));
 
         //project
-        if(employeeDTO.getProject() != null && StringUtils.isNotEmpty(employeeDTO.getProject()))
-            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.project), employeeDTO.getProject()));
-        if(employeeDTO.getClient() != null && StringUtils.isNotEmpty(employeeDTO.getClient()))
-            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.client), employeeDTO.getClient()));
-        if(employeeDTO.getTechnology() != null && StringUtils.isNotEmpty(employeeDTO.getTechnology()))
-            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.technology), employeeDTO.getTechnology()));
-        if(employeeDTO.getDuties() != null && StringUtils.isNotEmpty(employeeDTO.getDuties()))
-            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.duties), employeeDTO.getDuties()));
+        if(searchEmployeeDTO.getProject() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getProject()))
+            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.project), searchEmployeeDTO.getProject()));
+        if(searchEmployeeDTO.getClient() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getClient()))
+            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.client), searchEmployeeDTO.getClient()));
+        if(searchEmployeeDTO.getTechnology() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getTechnology()))
+            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.technology), searchEmployeeDTO.getTechnology()));
+        if(searchEmployeeDTO.getDuties() != null && StringUtils.isNotEmpty(searchEmployeeDTO.getDuties()))
+            conditions.add(builder.equal(projectEntities.get(ProjectEntity_.duties), searchEmployeeDTO.getDuties()));
 
 
         TypedQuery<EmployeeEntity> typedQuery = em.createQuery(query
@@ -172,12 +192,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Long id, SmallEmployeeDTO smallEmployeeDTO) {
+    public void updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO) {
         EmployeeEntity employeeById = getEmployeeById(id);
-        EmployeeEntity employeeEntity = employeeMapper.asEmployeeEntity(smallEmployeeDTO);
+        EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(basicEmployeeDTO);
         employeeEntity.setId(employeeById.getId());
 
-        UserEntity userById = findUserById(smallEmployeeDTO.getUserId());
+        UserEntity userById = userEntityService.getUserById(basicEmployeeDTO.getUserId());
         employeeEntity.setUserEntity(userById);
 
         employeeEntityRepository.save(employeeEntity);
@@ -186,5 +206,40 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployeeById(Long id) {
         employeeEntityRepository.delete(id);
+    }
+
+
+
+
+    @Override
+    public void createTest(EmployeeDTO employeeDTO) {
+        UserEntity userEntity = userEntityMapper.asUserEntity(employeeDTO.getUserEntityDTO());
+        userEntity = userEntityService.create(userEntity);
+        EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(employeeDTO);
+        employeeEntity.setUserEntity(userEntity);
+        employeeEntity = create(employeeEntity); //-- z tego bede bral id employee i wstawial do obiektow w setach
+
+       EmployeeEntity finalEmployeeEntity = employeeEntity;
+       /*  employeeDTO.getHistoryExperienceEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity))
+        employeeDTO.getEducationEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
+        employeeDTO.getAbilityEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
+        employeeDTO.getAdditionalInfoEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
+        employeeDTO.getPermissionEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
+        employeeDTO.getProjectEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
+        employeeDTO.getLanguageEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));*/
+
+/*        Stream.of(employeeDTO.getHistoryExperienceEntities())
+            .forEach(e -> e.stream()
+                .forEach(f->f.setEmployeeEntity(new EmployeeEntity())))*/
+        Set<HistoryExperienceEntity> collect = employeeDTO.getHistoryExperienceEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+
+        collect.forEach(e-> e.getEmployeeEntity().getId());
+
+        //employeeEntity = create(employeeEntity) koncowy save
+
+
     }
 }

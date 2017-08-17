@@ -2,8 +2,9 @@ package com.tt.test.web.rest;
 
 import com.tt.test.domain.EmployeeEntity;
 import com.tt.test.service.EmployeeService;
+import com.tt.test.service.dto.BasicEmployeeDTO;
 import com.tt.test.service.dto.EmployeeDTO;
-import com.tt.test.service.dto.SmallEmployeeDTO;
+import com.tt.test.service.dto.SearchEmployeeDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,23 +42,28 @@ public class EmployeeEntityResource {
     }
 
     @PostMapping("/employees")
-    public void createEmployee(@RequestBody SmallEmployeeDTO smallEmployeeDTO) {
-        employeeService.create(smallEmployeeDTO);
+    public void createEmployee(@RequestBody BasicEmployeeDTO basicEmployeeDTO) {
+        employeeService.create(basicEmployeeDTO);
     }
 
     @PostMapping("/employees-search")
-    public List<EmployeeEntity> searchEmployees(@RequestBody EmployeeDTO employeeDTO) {
-        return employeeService.searchEmployees(employeeDTO);
+    public List<EmployeeEntity> searchEmployees(@RequestBody SearchEmployeeDTO searchEmployeeDTO) {
+        return employeeService.searchEmployees(searchEmployeeDTO);
     }
 
     @PutMapping("/employees/{id}")
-    public void updateEmployee(@PathVariable("id") Long id, @RequestBody SmallEmployeeDTO smallEmployeeDTO) {
-        employeeService.updateEmployee(id, smallEmployeeDTO);
+    public void updateEmployee(@PathVariable("id") Long id, @RequestBody BasicEmployeeDTO basicEmployeeDTO) {
+        employeeService.updateEmployee(id, basicEmployeeDTO);
     }
 
     @DeleteMapping("/employees/{id}")
     public void deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployeeById(id);
+    }
+
+    @PostMapping("/employees-test")
+    public void createCompleteEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        employeeService.createTest(employeeDTO);
     }
 /*
     *//**

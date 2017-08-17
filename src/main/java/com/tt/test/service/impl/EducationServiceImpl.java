@@ -28,8 +28,8 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public void create(EducationEntity obj) {
-        educationEntityRepository.save(obj);
+    public EducationEntity create(EducationEntity obj) {
+        return educationEntityRepository.save(obj);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.tt.test.service.mapper;
 
 import com.tt.test.domain.ProjectEntity;
-import com.tt.test.service.dto.EmployeeDTO;
 import com.tt.test.service.dto.ProjectDTO;
 import fr.xebia.extras.selma.Mapper;
 

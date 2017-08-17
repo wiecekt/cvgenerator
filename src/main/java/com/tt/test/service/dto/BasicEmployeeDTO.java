@@ -3,7 +3,7 @@ package com.tt.test.service.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.joda.time.LocalDate;
 
-public class SmallEmployeeDTO {
+public class BasicEmployeeDTO {
     private String name;
     private String surname;
     private String department;

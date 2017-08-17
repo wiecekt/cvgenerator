@@ -29,8 +29,8 @@ public class AbilityServiceImpl implements AbilityService {
 
     @Override
     // na razie zostaw bo potrzebne do tworzenia w database init. Potem sie wywali
-    public void create(AbilityEntity obj) {
-        abilityEntityRepository.save(obj);
+    public AbilityEntity create(AbilityEntity obj) {
+        return abilityEntityRepository.save(obj);
     }
 
     @Override

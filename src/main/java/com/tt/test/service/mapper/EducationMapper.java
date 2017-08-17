@@ -1,9 +1,7 @@
 package com.tt.test.service.mapper;
 
 import com.tt.test.domain.EducationEntity;
-import com.tt.test.service.dto.AdditionalInfoDTO;
 import com.tt.test.service.dto.EducationDTO;
-import com.tt.test.service.dto.EmployeeDTO;
 import fr.xebia.extras.selma.Mapper;
 import org.joda.time.LocalDate;
 

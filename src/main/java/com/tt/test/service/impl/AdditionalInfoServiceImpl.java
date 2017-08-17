@@ -28,8 +28,8 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
     }
 
     @Override
-    public void create(AdditionalInfoEntity obj) {
-        additionalInfoEntityRepository.save(obj);
+    public AdditionalInfoEntity create(AdditionalInfoEntity obj) {
+        return additionalInfoEntityRepository.save(obj);
     }
 
     @Override

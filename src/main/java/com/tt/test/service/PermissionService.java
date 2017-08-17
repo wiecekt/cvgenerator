@@ -1,16 +1,14 @@
 package com.tt.test.service;
 
 import com.tt.test.domain.EmployeeEntity;
-import com.tt.test.domain.HistoryExperienceEntity;
 import com.tt.test.domain.PermissionEntity;
-import com.tt.test.service.dto.HistoryExperienceDTO;
 import com.tt.test.service.dto.PermissionDTO;
 
 import java.util.List;
 
 public interface PermissionService {
 
-    void create(PermissionEntity obj);
+    PermissionEntity create(PermissionEntity obj);
     void create(PermissionDTO permissionDTO);
     EmployeeEntity findEmployeeById(Long id);
     PermissionEntity getPermissionById(Long id);

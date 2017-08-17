@@ -404,15 +404,15 @@ public class EmployeeEntity implements Serializable {
     @Override
     public String toString() {
         return "EmployeeEntity{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", surname='" + getSurname() + "'" +
-            ", department='" + getDepartment() + "'" +
-            ", division='" + getDivision() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", dateOfBirth='" + getDateOfBirth() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", telephone='" + getTelephone() + "'" +
-            "}";
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", surname='" + surname + '\'' +
+            ", department='" + department + '\'' +
+            ", division='" + division + '\'' +
+            ", address='" + address + '\'' +
+            ", dateOfBirth=" + dateOfBirth +
+            ", email='" + email + '\'' +
+            ", telephone='" + telephone + '\'' +
+            '}';
     }
 }

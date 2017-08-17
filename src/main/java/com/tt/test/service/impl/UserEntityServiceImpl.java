@@ -27,8 +27,8 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public void create(UserEntity obj) {
-        userEntityRepository.save(obj);
+    public UserEntity create(UserEntity obj) {
+        return userEntityRepository.save(obj);
     }
 
     @Override

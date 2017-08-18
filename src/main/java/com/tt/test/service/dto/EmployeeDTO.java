@@ -1,7 +1,10 @@
 package com.tt.test.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.tt.test.domain.*;
+import com.tt.test.service.deserializer.EducationDeserializer;
+import com.tt.test.service.deserializer.HistoryExperienceDeserializer;
 import org.joda.time.LocalDate;
 
 import java.util.Set;
@@ -20,8 +23,10 @@ public class EmployeeDTO {
 
     private UserEntityDTO userEntityDTO;
 
+    @JsonDeserialize(using = HistoryExperienceDeserializer.class)
     private Set<HistoryExperienceEntity> historyExperienceEntities;
 
+    @JsonDeserialize(using = EducationDeserializer.class)
     private Set<EducationEntity> educationEntities;
 
     private Set<AbilityEntity> abilityEntities;
@@ -110,6 +115,7 @@ public class EmployeeDTO {
         return historyExperienceEntities;
     }
 
+    //@JsonDeserialize(as=Set.class, contentAs=HistoryExperienceEntity.class)
     public void setHistoryExperienceEntities(Set<HistoryExperienceEntity> historyExperienceEntities) {
         this.historyExperienceEntities = historyExperienceEntities;
     }

@@ -208,8 +208,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeEntityRepository.delete(id);
     }
 
-
-
+/*    public <T> Set<T> updateCollection(Set<T> collection) {
+        collection.getClass().cast
+        collection
+            .stream()
+            .
+        return new HashSet<>();
+    }*/
 
     @Override
     public void createTest(EmployeeDTO employeeDTO) {
@@ -217,29 +222,60 @@ public class EmployeeServiceImpl implements EmployeeService {
         userEntity = userEntityService.create(userEntity);
         EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(employeeDTO);
         employeeEntity.setUserEntity(userEntity);
-        employeeEntity = create(employeeEntity); //-- z tego bede bral id employee i wstawial do obiektow w setach
+        employeeEntity = create(employeeEntity);
 
        EmployeeEntity finalEmployeeEntity = employeeEntity;
-       /*  employeeDTO.getHistoryExperienceEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity))
-        employeeDTO.getEducationEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
-        employeeDTO.getAbilityEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
-        employeeDTO.getAdditionalInfoEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
-        employeeDTO.getPermissionEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
-        employeeDTO.getProjectEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));
-        employeeDTO.getLanguageEntities().forEach(e -> e.setEmployeeEntity(finalEmployeeEntity));*/
 
-/*        Stream.of(employeeDTO.getHistoryExperienceEntities())
-            .forEach(e -> e.stream()
-                .forEach(f->f.setEmployeeEntity(new EmployeeEntity())))*/
-        Set<HistoryExperienceEntity> collect = employeeDTO.getHistoryExperienceEntities()
+        /// TODO: ZROB JAKOS Z TEGO GENERYKA BO ZA DUZO KODU
+        Set<HistoryExperienceEntity> historyExperienceEntities = employeeDTO.getHistoryExperienceEntities()
             .stream()
             .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
             .collect(Collectors.toSet());
+        historyExperienceEntities.forEach(historyExperienceService::create);
+        employeeEntity.setHistoryExperienceEntities(historyExperienceEntities);
 
-        collect.forEach(e-> e.getEmployeeEntity().getId());
+        Set<EducationEntity> educationEntities = employeeDTO.getEducationEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+        educationEntities.forEach(educationService::create);
+        employeeEntity.setEducationEntities(educationEntities);
 
-        //employeeEntity = create(employeeEntity) koncowy save
+        Set<AbilityEntity> abilityEntities = employeeDTO.getAbilityEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+        abilityEntities.forEach(abilityService::create);
+        employeeEntity.setAbilityEntities(abilityEntities);
 
+        Set<AdditionalInfoEntity> additionalInfoEntities = employeeDTO.getAdditionalInfoEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+        additionalInfoEntities.forEach(additionalInfoService::create);
+        employeeEntity.setAdditionalInfoEntities(additionalInfoEntities);
 
+        Set<PermissionEntity> permissionEntities = employeeDTO.getPermissionEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+        permissionEntities.forEach(permissionService::create);
+        employeeEntity.setPermissionEntities(permissionEntities);
+
+        Set<ProjectEntity> projectEntities = employeeDTO.getProjectEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+        projectEntities.forEach(projectService::create);
+        employeeEntity.setProjectEntities(projectEntities);
+
+        Set<LanguageEntity> languageEntities = employeeDTO.getLanguageEntities()
+            .stream()
+            .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
+            .collect(Collectors.toSet());
+        languageEntities.forEach(languageService::create);
+        employeeEntity.setLanguageEntities(languageEntities);
+
+        create(employeeEntity);
     }
 }

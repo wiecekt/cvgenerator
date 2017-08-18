@@ -9,10 +9,10 @@ import java.util.List;
 public interface PermissionService {
 
     PermissionEntity create(PermissionEntity obj);
-    void create(PermissionDTO permissionDTO);
+    PermissionEntity create(PermissionDTO permissionDTO);
     EmployeeEntity findEmployeeById(Long id);
     PermissionEntity getPermissionById(Long id);
     List<PermissionEntity> getAllPermissions();
-    void updatePermission(Long id, PermissionDTO permissionDTO);
+    PermissionEntity updatePermission(Long id, PermissionDTO permissionDTO);
     void deletePermissionById(Long id);
 }

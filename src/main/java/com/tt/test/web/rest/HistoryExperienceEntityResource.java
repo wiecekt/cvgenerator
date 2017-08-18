@@ -40,13 +40,13 @@ public class HistoryExperienceEntityResource {
     }
 
     @PostMapping("/history-experiences")
-    public void createHistoryExperience(@RequestBody HistoryExperienceDTO historyExperienceDTO) {
-        historyExperienceService.create(historyExperienceDTO);
+    public HistoryExperienceEntity createHistoryExperience(@RequestBody HistoryExperienceDTO historyExperienceDTO) {
+        return historyExperienceService.create(historyExperienceDTO);
     }
 
     @PutMapping("/history-experiences/{id}")
-    public void updateHistoryExperience(@PathVariable("id") Long id, @RequestBody HistoryExperienceDTO historyExperienceDTO) {
-        historyExperienceService.updateHistoryExperience(id, historyExperienceDTO);
+    public HistoryExperienceEntity updateHistoryExperience(@PathVariable("id") Long id, @RequestBody HistoryExperienceDTO historyExperienceDTO) {
+        return historyExperienceService.updateHistoryExperience(id, historyExperienceDTO);
     }
 
     @DeleteMapping("/history-experiences/{id}")

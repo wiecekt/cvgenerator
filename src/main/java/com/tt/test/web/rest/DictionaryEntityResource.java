@@ -45,13 +45,13 @@ public class DictionaryEntityResource {
     }
 
     @PostMapping("/dictionaries")
-    public void createDictionary(@RequestBody DictionaryDTO dictionaryDTO) {
-        dictionaryService.create(dictionaryDTO);
+    public DictionaryEntity createDictionary(@RequestBody DictionaryDTO dictionaryDTO) {
+        return dictionaryService.create(dictionaryDTO);
     }
 
     @PutMapping("/dictionaries/{id}")
-    public void updateDictionary(@PathVariable("id") Long id, @RequestBody DictionaryDTO dictionaryDTO) {
-        dictionaryService.updateDictionary(id, dictionaryDTO);
+    public DictionaryEntity updateDictionary(@PathVariable("id") Long id, @RequestBody DictionaryDTO dictionaryDTO) {
+        return dictionaryService.updateDictionary(id, dictionaryDTO);
     }
 
     @DeleteMapping("/dictionaries/{id}")

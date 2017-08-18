@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 public interface AbilityService {
     AbilityEntity create(AbilityEntity obj);
-    void create(AbilityDTO abilityDTO);
+    AbilityEntity create(AbilityDTO abilityDTO);
     EmployeeEntity findEmployeeById(Long id);
     AbilityEntity getAbilityById(Long id);
     List<AbilityEntity> getAllAbilities();
-    void updateAbility(Long id, AbilityDTO abilityDTO);
+    AbilityEntity updateAbility(Long id, AbilityDTO abilityDTO);
     void deleteAbilityById(Long id);
 }

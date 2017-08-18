@@ -42,8 +42,8 @@ public class EmployeeEntityResource {
     }
 
     @PostMapping("/employees")
-    public void createEmployee(@RequestBody BasicEmployeeDTO basicEmployeeDTO) {
-        employeeService.create(basicEmployeeDTO);
+    public EmployeeEntity createEmployee(@RequestBody BasicEmployeeDTO basicEmployeeDTO) {
+        return employeeService.create(basicEmployeeDTO);
     }
 
     @PostMapping("/employees-search")
@@ -52,8 +52,8 @@ public class EmployeeEntityResource {
     }
 
     @PutMapping("/employees/{id}")
-    public void updateEmployee(@PathVariable("id") Long id, @RequestBody BasicEmployeeDTO basicEmployeeDTO) {
-        employeeService.updateEmployee(id, basicEmployeeDTO);
+    public EmployeeEntity updateEmployee(@PathVariable("id") Long id, @RequestBody BasicEmployeeDTO basicEmployeeDTO) {
+        return employeeService.updateEmployee(id, basicEmployeeDTO);
     }
 
     @DeleteMapping("/employees/{id}")

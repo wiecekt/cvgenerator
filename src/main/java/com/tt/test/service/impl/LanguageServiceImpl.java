@@ -33,13 +33,13 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public void create(LanguageDTO languageDTO) {
+    public LanguageEntity create(LanguageDTO languageDTO) {
         //sprawdz czy istnieje
         EmployeeEntity employeeById = findEmployeeById(languageDTO.getEmployeeId());
         LanguageEntity languageEntity = languageMapper.asLanguageEntity(languageDTO);
         languageEntity.setEmployeeEntity(employeeById);
 
-        languageEntityRepository.save(languageEntity);
+        return languageEntityRepository.save(languageEntity);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public void updateLanguage(Long id, LanguageDTO languageDTO) {
+    public LanguageEntity updateLanguage(Long id, LanguageDTO languageDTO) {
         //sprawdz czy istnieje
         LanguageEntity languageById = getLanguageById(id);
         LanguageEntity languageEntity = languageMapper.asLanguageEntity(languageDTO);
@@ -67,7 +67,7 @@ public class LanguageServiceImpl implements LanguageService {
         EmployeeEntity employeeById = findEmployeeById(languageDTO.getEmployeeId());
         languageEntity.setEmployeeEntity(employeeById);
 
-        languageEntityRepository.save(languageEntity);
+        return languageEntityRepository.save(languageEntity);
     }
 
     @Override

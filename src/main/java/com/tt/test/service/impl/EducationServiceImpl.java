@@ -33,13 +33,13 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public void create(EducationDTO educationDTO) {
+    public EducationEntity create(EducationDTO educationDTO) {
         //sprawdz czy istnieje taki o podanym id
         EmployeeEntity employeeById = findEmployeeById(educationDTO.getEmployeeId());
         EducationEntity educationEntity = educationMapper.asEducationEntity(educationDTO);
         educationEntity.setEmployeeEntity(employeeById);
 
-        educationEntityRepository.save(educationEntity);
+        return educationEntityRepository.save(educationEntity);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public void updateEducation(Long id, EducationDTO educationDTO) {
+    public EducationEntity updateEducation(Long id, EducationDTO educationDTO) {
         //sprawdz czy istnieje
         EducationEntity educationById = getEducationById(id);
         EducationEntity educationEntity = educationMapper.asEducationEntity(educationDTO);
@@ -67,7 +67,7 @@ public class EducationServiceImpl implements EducationService {
         EmployeeEntity employeeById = findEmployeeById(educationDTO.getEmployeeId());
         educationEntity.setEmployeeEntity(employeeById);
 
-        educationEntityRepository.save(educationEntity);
+        return educationEntityRepository.save(educationEntity);
     }
 
     @Override

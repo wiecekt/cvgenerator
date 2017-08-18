@@ -32,9 +32,9 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public void create(UserEntityDTO userEntityDTO) {
+    public UserEntity create(UserEntityDTO userEntityDTO) {
         UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
-        userEntityRepository.save(userEntity);
+        return userEntityRepository.save(userEntity);
     }
 
     @Override
@@ -48,13 +48,13 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public void updateUser(Long id, UserEntityDTO userEntityDTO) {
+    public UserEntity updateUser(Long id, UserEntityDTO userEntityDTO) {
         //sprawdz czy istnieje
         UserEntity userById = getUserById(id);
         UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
         userEntity.setId(userById.getId());
 
-        userEntityRepository.save(userEntity);
+        return userEntityRepository.save(userEntity);
     }
 
     @Override

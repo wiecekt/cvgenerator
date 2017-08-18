@@ -9,11 +9,11 @@ import java.util.List;
 public interface AdditionalInfoService {
 
     AdditionalInfoEntity create(AdditionalInfoEntity obj);
-    void create(AdditionalInfoDTO additionalInfoDTO);
+    AdditionalInfoEntity create(AdditionalInfoDTO additionalInfoDTO);
     EmployeeEntity findEmployeeById(Long id);
     AdditionalInfoEntity getAdditionalInfoById(Long id);
-    List<AdditionalInfoEntity> getAllAdditionalInfos();
-    void updateAdditionalInfo(Long id, AdditionalInfoDTO additionalInfoDTO);
+    List<AdditionalInfoEntity> getAllAdditionalInfo();
+    AdditionalInfoEntity updateAdditionalInfo(Long id, AdditionalInfoDTO additionalInfoDTO);
     void deleteAdditionalInfoById(Long id);
 
 }

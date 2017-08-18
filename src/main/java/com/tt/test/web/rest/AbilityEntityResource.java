@@ -40,13 +40,13 @@ public class AbilityEntityResource {
     }
 
     @PostMapping("/abilities")
-    public void createAbility(@RequestBody AbilityDTO abilityDTO) {
-        abilityService.create(abilityDTO);
+    public AbilityEntity createAbility(@RequestBody AbilityDTO abilityDTO) {
+        return abilityService.create(abilityDTO);
     }
 
     @PutMapping("/abilities/{id}")
-    public void updateAbility(@PathVariable("id") Long id, @RequestBody AbilityDTO abilityDTO) {
-        abilityService.updateAbility(id, abilityDTO);
+    public AbilityEntity updateAbility(@PathVariable("id") Long id, @RequestBody AbilityDTO abilityDTO) {
+        return abilityService.updateAbility(id, abilityDTO);
     }
 
     @DeleteMapping("/abilities/{id}")

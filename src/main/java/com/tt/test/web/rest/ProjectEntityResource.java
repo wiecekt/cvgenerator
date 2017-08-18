@@ -40,13 +40,13 @@ public class ProjectEntityResource {
     }
 
     @PostMapping("/projects")
-    public void createProject(@RequestBody ProjectDTO projectDTO) {
-        projectService.create(projectDTO);
+    public ProjectEntity createProject(@RequestBody ProjectDTO projectDTO) {
+        return projectService.create(projectDTO);
     }
 
     @PutMapping("/projects/{id}")
-    public void updateProject(@PathVariable("id") Long id, @RequestBody ProjectDTO projectDTO) {
-        projectService.updateProject(id, projectDTO);
+    public ProjectEntity updateProject(@PathVariable("id") Long id, @RequestBody ProjectDTO projectDTO) {
+        return projectService.updateProject(id, projectDTO);
     }
 
     @DeleteMapping("/projects/{id}")

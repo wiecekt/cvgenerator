@@ -8,9 +8,9 @@ import java.util.List;
 public interface UserEntityService {
 
     UserEntity create(UserEntity obj);
-    void create(UserEntityDTO userEntityDTO);
+    UserEntity create(UserEntityDTO userEntityDTO);
     UserEntity getUserById(Long id);
     List<UserEntity> getAllUsers();
-    void updateUser(Long id, UserEntityDTO userEntityDTO);
+    UserEntity updateUser(Long id, UserEntityDTO userEntityDTO);
     void deleteUserById(Long id);
 }

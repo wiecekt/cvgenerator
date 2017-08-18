@@ -40,13 +40,13 @@ public class UserEntityResource {
     }
 
     @PostMapping("/users")
-    public void createUser(@RequestBody UserEntityDTO userEntityDTO) {
-        userEntityService.create(userEntityDTO);
+    public UserEntity createUser(@RequestBody UserEntityDTO userEntityDTO) {
+        return userEntityService.create(userEntityDTO);
     }
 
     @PutMapping("/users/{id}")
-    public void updateUser(@PathVariable("id") Long id, @RequestBody UserEntityDTO userEntityDTO) {
-        userEntityService.updateUser(id, userEntityDTO);
+    public UserEntity updateUser(@PathVariable("id") Long id, @RequestBody UserEntityDTO userEntityDTO) {
+        return userEntityService.updateUser(id, userEntityDTO);
     }
 
     @DeleteMapping("/users/{id}")

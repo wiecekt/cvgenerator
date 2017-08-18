@@ -10,11 +10,11 @@ import java.util.List;
 public interface EmployeeService {
 
     EmployeeEntity create(EmployeeEntity obj);
-    void create(BasicEmployeeDTO basicEmployeeDTO);
+    EmployeeEntity create(BasicEmployeeDTO basicEmployeeDTO);
     EmployeeEntity getEmployeeById(Long id);
     List<EmployeeEntity> getAllEmployees();
     List<EmployeeEntity> searchEmployees(SearchEmployeeDTO searchEmployeeDTO);
-    void updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO);
+    EmployeeEntity updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO);
     void deleteEmployeeById(Long id);
 
     void createTest(EmployeeDTO employeeDTO);

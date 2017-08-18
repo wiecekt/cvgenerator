@@ -40,13 +40,13 @@ public class EducationEntityResource {
     }
 
     @PostMapping("/education")
-    public void createEducation(@RequestBody EducationDTO educationDTO) {
-        educationService.create(educationDTO);
+    public EducationEntity createEducation(@RequestBody EducationDTO educationDTO) {
+        return educationService.create(educationDTO);
     }
 
     @PutMapping("/education/{id}")
-    public void updateEducation(@PathVariable("id") Long id, @RequestBody EducationDTO educationDTO) {
-        educationService.updateEducation(id, educationDTO);
+    public EducationEntity updateEducation(@PathVariable("id") Long id, @RequestBody EducationDTO educationDTO) {
+        return educationService.updateEducation(id, educationDTO);
     }
 
     @DeleteMapping("/education/{id}")

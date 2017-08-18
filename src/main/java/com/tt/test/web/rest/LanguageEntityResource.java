@@ -40,13 +40,13 @@ public class LanguageEntityResource {
     }
 
     @PostMapping("/languages")
-    public void createLanguage(@RequestBody LanguageDTO languageDTO) {
-        languageService.create(languageDTO);
+    public LanguageEntity createLanguage(@RequestBody LanguageDTO languageDTO) {
+        return languageService.create(languageDTO);
     }
 
     @PutMapping("/languages/{id}")
-    public void updateLanguage(@PathVariable("id") Long id, @RequestBody LanguageDTO languageDTO) {
-        languageService.updateLanguage(id, languageDTO);
+    public LanguageEntity updateLanguage(@PathVariable("id") Long id, @RequestBody LanguageDTO languageDTO) {
+        return languageService.updateLanguage(id, languageDTO);
     }
 
     @DeleteMapping("/languages/{id}")

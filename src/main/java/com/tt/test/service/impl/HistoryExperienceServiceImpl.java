@@ -33,13 +33,13 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
     }
 
     @Override
-    public void create(HistoryExperienceDTO historyExperienceDTO) {
+    public HistoryExperienceEntity create(HistoryExperienceDTO historyExperienceDTO) {
         //sprawdz czy istnieje taki o podanym id
         EmployeeEntity employeeById = findEmployeeById(historyExperienceDTO.getEmployeeId());
         HistoryExperienceEntity historyExperienceEntity = historyExperienceMapper.asHistoryExperienceEntity(historyExperienceDTO);
         historyExperienceEntity.setEmployeeEntity(employeeById);
 
-        historyExperienceEntityRepository.save(historyExperienceEntity);
+        return historyExperienceEntityRepository.save(historyExperienceEntity);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
     }
 
     @Override
-    public void updateHistoryExperience(Long id, HistoryExperienceDTO historyExperienceDTO) {
+    public HistoryExperienceEntity updateHistoryExperience(Long id, HistoryExperienceDTO historyExperienceDTO) {
         HistoryExperienceEntity historyExperienceById = getHistoryExperienceById(id);
         HistoryExperienceEntity historyExperienceEntity = historyExperienceMapper.asHistoryExperienceEntity(historyExperienceDTO);
         historyExperienceEntity.setId(historyExperienceById.getId());
@@ -66,7 +66,7 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
         EmployeeEntity employeeById = findEmployeeById(historyExperienceDTO.getEmployeeId());
         historyExperienceEntity.setEmployeeEntity(employeeById);
 
-        historyExperienceEntityRepository.save(historyExperienceEntity);
+        return historyExperienceEntityRepository.save(historyExperienceEntity);
     }
 
     @Override

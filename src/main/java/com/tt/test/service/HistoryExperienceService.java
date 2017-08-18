@@ -9,10 +9,10 @@ import java.util.List;
 public interface HistoryExperienceService {
 
     HistoryExperienceEntity create(HistoryExperienceEntity obj);
-    void create(HistoryExperienceDTO historyExperienceDTO);
+    HistoryExperienceEntity create(HistoryExperienceDTO historyExperienceDTO);
     EmployeeEntity findEmployeeById(Long id);
     HistoryExperienceEntity getHistoryExperienceById(Long id);
     List<HistoryExperienceEntity> getAllHistoryExperiences();
-    void updateHistoryExperience(Long id, HistoryExperienceDTO historyExperienceDTO);
+    HistoryExperienceEntity updateHistoryExperience(Long id, HistoryExperienceDTO historyExperienceDTO);
     void deleteHistoryExperienceById(Long id);
 }

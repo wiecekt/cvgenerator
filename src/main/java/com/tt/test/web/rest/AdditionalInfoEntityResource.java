@@ -36,17 +36,17 @@ public class AdditionalInfoEntityResource {
 
     @GetMapping("/additional-info")
     public List<AdditionalInfoEntity> getAllAdditionalInfos() {
-        return additionalInfoService.getAllAdditionalInfos();
+        return additionalInfoService.getAllAdditionalInfo();
     }
 
     @PostMapping("/additional-info")
-    public void createAdditionalInfo(@RequestBody AdditionalInfoDTO additionalInfoDTO) {
-        additionalInfoService.create(additionalInfoDTO);
+    public AdditionalInfoEntity createAdditionalInfo(@RequestBody AdditionalInfoDTO additionalInfoDTO) {
+        return additionalInfoService.create(additionalInfoDTO);
     }
 
     @PutMapping("/additional-info/{id}")
-    public void updateAdditionalInfo(@PathVariable("id") Long id, @RequestBody AdditionalInfoDTO additionalInfoDTO) {
-        additionalInfoService.updateAdditionalInfo(id, additionalInfoDTO);
+    public AdditionalInfoEntity updateAdditionalInfo(@PathVariable("id") Long id, @RequestBody AdditionalInfoDTO additionalInfoDTO) {
+        return additionalInfoService.updateAdditionalInfo(id, additionalInfoDTO);
     }
 
     @DeleteMapping("/additional-info/{id}")

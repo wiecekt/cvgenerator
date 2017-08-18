@@ -33,12 +33,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void create(ProjectDTO projectDTO) {
+    public ProjectEntity create(ProjectDTO projectDTO) {
         EmployeeEntity employeeById = findEmployeeById(projectDTO.getEmployeeId());
         ProjectEntity projectEntity = projectMapper.asProjectEntity(projectDTO);
         projectEntity.setEmployeeEntity(employeeById);
 
-        projectEntityRepository.save(projectEntity);
+        return projectEntityRepository.save(projectEntity);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void updateProject(Long id, ProjectDTO projectDTO) {
+    public ProjectEntity updateProject(Long id, ProjectDTO projectDTO) {
         //sprawdz czy istnieje
         ProjectEntity projectById = getProjectById(id);
         ProjectEntity projectEntity = projectMapper.asProjectEntity(projectDTO);
@@ -66,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
         EmployeeEntity employeeById = findEmployeeById(projectDTO.getEmployeeId());
         projectEntity.setEmployeeEntity(employeeById);
 
-        projectEntityRepository.save(projectEntity);
+        return projectEntityRepository.save(projectEntity);
     }
 
     @Override

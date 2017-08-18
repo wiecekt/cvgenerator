@@ -40,13 +40,13 @@ public class PermissionEntityResource {
     }
 
     @PostMapping("/permissions")
-    public void createPermission(@RequestBody PermissionDTO permissionDTO) {
-        permissionService.create(permissionDTO);
+    public PermissionEntity createPermission(@RequestBody PermissionDTO permissionDTO) {
+        return permissionService.create(permissionDTO);
     }
 
     @PutMapping("/permissions/{id}")
-    public void updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDTO permissionDTO) {
-        permissionService.updatePermission(id, permissionDTO);
+    public PermissionEntity updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDTO permissionDTO) {
+        return permissionService.updatePermission(id, permissionDTO);
     }
 
     @DeleteMapping("/permissions/{id}")

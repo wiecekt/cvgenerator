@@ -29,9 +29,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public void create(DictionaryDTO dictionaryDTO) {
+    public DictionaryEntity create(DictionaryDTO dictionaryDTO) {
         DictionaryEntity dictionaryEntity = dictionaryMapper.asDictionaryEntity(dictionaryDTO);
-        dictionaryEntityRepository.save(dictionaryEntity);
+        return dictionaryEntityRepository.save(dictionaryEntity);
     }
 
     @Override
@@ -50,12 +50,12 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public void updateDictionary(Long id, DictionaryDTO dictionaryDTO) {
+    public DictionaryEntity updateDictionary(Long id, DictionaryDTO dictionaryDTO) {
         DictionaryEntity dictionaryById = getDictionaryById(id);
         DictionaryEntity dictionaryEntity = dictionaryMapper.asDictionaryEntity(dictionaryDTO);
         dictionaryEntity.setId(dictionaryById.getId());
 
-        dictionaryEntityRepository.save(dictionaryEntity);
+        return dictionaryEntityRepository.save(dictionaryEntity);
     }
 
     @Override

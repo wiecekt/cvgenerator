@@ -29,19 +29,19 @@ public class AbilityServiceImpl implements AbilityService {
 
     @Override
     // na razie zostaw bo potrzebne do tworzenia w database init. Potem sie wywali
-    public AbilityEntity create(AbilityEntity obj) {
-        return abilityEntityRepository.save(obj);
+    public void create(AbilityEntity obj) {
+        abilityEntityRepository.save(obj);
     }
 
     @Override
-    public void create(AbilityDTO abilityDTO) {
+    public AbilityEntity create(AbilityDTO abilityDTO) {
 
         //sprawdz czy istnieje taki o podanym id
         EmployeeEntity employeeById = findEmployeeById(abilityDTO.getEmployeeId());
         AbilityEntity abilityEntity = abilityMapper.asAbilityEntity(abilityDTO);
         abilityEntity.setEmployeeEntity(employeeById);
 
-        abilityEntityRepository.save(abilityEntity);
+        return abilityEntityRepository.save(abilityEntity);
 
     }
 
@@ -61,7 +61,7 @@ public class AbilityServiceImpl implements AbilityService {
     }
 
     @Override
-    public void updateAbility(Long id, AbilityDTO abilityDTO) {
+    public AbilityEntity updateAbility(Long id, AbilityDTO abilityDTO) {
         //sprawdz czy istnieje
         AbilityEntity abilityById = getAbilityById(id);
         AbilityEntity abilityEntity = abilityMapper.asAbilityEntity(abilityDTO);
@@ -70,7 +70,7 @@ public class AbilityServiceImpl implements AbilityService {
         EmployeeEntity employeeById = findEmployeeById(abilityDTO.getEmployeeId());
         abilityEntity.setEmployeeEntity(employeeById);
 
-        abilityEntityRepository.save(abilityEntity);
+        return abilityEntityRepository.save(abilityEntity);
     }
 
     @Override

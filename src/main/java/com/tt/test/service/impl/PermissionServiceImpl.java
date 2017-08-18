@@ -28,18 +28,18 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public PermissionEntity create(PermissionEntity obj) {
-        return permissionEntityRepository.save(obj);
+    public void create(PermissionEntity obj) {
+        permissionEntityRepository.save(obj);
     }
 
     @Override
-    public void create(PermissionDTO permissionDTO) {
+    public PermissionEntity create(PermissionDTO permissionDTO) {
         //sprawdz czy istnieje
         EmployeeEntity employeeById = findEmployeeById(permissionDTO.getEmployeeId());
         PermissionEntity permissionEntity = permissionMapper.asPermissionEntity(permissionDTO);
         permissionEntity.setEmployeeEntity(employeeById);
 
-        permissionEntityRepository.save(permissionEntity);
+        return permissionEntityRepository.save(permissionEntity);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public void updatePermission(Long id, PermissionDTO permissionDTO) {
+    public PermissionEntity updatePermission(Long id, PermissionDTO permissionDTO) {
         //sprawdz czy istnieje
         PermissionEntity permissionById = getPermissionById(id);
         PermissionEntity permissionEntity = permissionMapper.asPermissionEntity(permissionDTO);
@@ -67,7 +67,7 @@ public class PermissionServiceImpl implements PermissionService {
         EmployeeEntity employeeById = findEmployeeById(permissionDTO.getEmployeeId());
         permissionEntity.setEmployeeEntity(employeeById);
 
-        permissionEntityRepository.save(permissionEntity);
+        return permissionEntityRepository.save(permissionEntity);
     }
 
     @Override

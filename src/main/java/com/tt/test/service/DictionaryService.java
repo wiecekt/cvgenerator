@@ -8,10 +8,10 @@ import java.util.List;
 public interface DictionaryService {
 
     void create(DictionaryEntity obj);
-    void create(DictionaryDTO dictionaryDTO);
+    DictionaryEntity create(DictionaryDTO dictionaryDTO);
     DictionaryEntity getDictionaryById(Long id);
     List<DictionaryEntity> getDictionariesBySection(String section);
     List<DictionaryEntity> getAllDictionaries();
-    void updateDictionary(Long id, DictionaryDTO dictionaryDTO);
+    DictionaryEntity updateDictionary(Long id, DictionaryDTO dictionaryDTO);
     void deleteDictionaryById(Long id);
 }

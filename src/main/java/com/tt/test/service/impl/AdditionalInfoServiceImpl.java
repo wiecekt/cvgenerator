@@ -28,18 +28,18 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
     }
 
     @Override
-    public AdditionalInfoEntity create(AdditionalInfoEntity obj) {
-        return additionalInfoEntityRepository.save(obj);
+    public void create(AdditionalInfoEntity obj) {
+        additionalInfoEntityRepository.save(obj);
     }
 
     @Override
-    public void create(AdditionalInfoDTO additionalInfoDTO) {
+    public AdditionalInfoEntity create(AdditionalInfoDTO additionalInfoDTO) {
         //sprawdz czy istnieje
         EmployeeEntity employeeById = findEmployeeById(additionalInfoDTO.getEmployeeId());
         AdditionalInfoEntity additionalInfoEntity = additionalInfoMapper.asAdditionalInfoEntity(additionalInfoDTO);
         additionalInfoEntity.setEmployeeEntity(employeeById);
 
-        additionalInfoEntityRepository.save(additionalInfoEntity);
+        return additionalInfoEntityRepository.save(additionalInfoEntity);
     }
 
     @Override
@@ -53,12 +53,12 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
     }
 
     @Override
-    public List<AdditionalInfoEntity> getAllAdditionalInfos() {
+    public List<AdditionalInfoEntity> getAllAdditionalInfo() {
         return additionalInfoEntityRepository.findAll();
     }
 
     @Override
-    public void updateAdditionalInfo(Long id, AdditionalInfoDTO additionalInfoDTO) {
+    public AdditionalInfoEntity updateAdditionalInfo(Long id, AdditionalInfoDTO additionalInfoDTO) {
         AdditionalInfoEntity additionalInfoById = getAdditionalInfoById(id);
         AdditionalInfoEntity additionalInfoEntity = additionalInfoMapper.asAdditionalInfoEntity(additionalInfoDTO);
         additionalInfoEntity.setId(additionalInfoById.getId());
@@ -66,7 +66,7 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
         EmployeeEntity employeeById = findEmployeeById(additionalInfoDTO.getEmployeeId());
         additionalInfoEntity.setEmployeeEntity(employeeById);
 
-        additionalInfoEntityRepository.save(additionalInfoEntity);
+        return additionalInfoEntityRepository.save(additionalInfoEntity);
     }
 
     @Override

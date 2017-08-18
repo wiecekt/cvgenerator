@@ -67,13 +67,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void create(BasicEmployeeDTO basicEmployeeDTO) {
+    public EmployeeEntity create(BasicEmployeeDTO basicEmployeeDTO) {
         //sprawdz czy istnieje
         UserEntity userById = userEntityService.getUserById(basicEmployeeDTO.getUserId());
         EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(basicEmployeeDTO);
         employeeEntity.setUserEntity(userById);
 
-        employeeEntityRepository.save(employeeEntity);
+        return employeeEntityRepository.save(employeeEntity);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO) {
+    public EmployeeEntity updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO) {
         EmployeeEntity employeeById = getEmployeeById(id);
         EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(basicEmployeeDTO);
         employeeEntity.setId(employeeById.getId());
@@ -200,7 +200,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         UserEntity userById = userEntityService.getUserById(basicEmployeeDTO.getUserId());
         employeeEntity.setUserEntity(userById);
 
-        employeeEntityRepository.save(employeeEntity);
+        return employeeEntityRepository.save(employeeEntity);
     }
 
     @Override

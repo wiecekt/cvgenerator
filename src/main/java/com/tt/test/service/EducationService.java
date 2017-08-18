@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface EducationService {
 
-    EducationEntity create(EducationEntity obj);
-    void create(EducationDTO educationDTO);
+    void create(EducationEntity obj);
+    EducationEntity create(EducationDTO educationDTO);
     EmployeeEntity findEmployeeById(Long id);
     EducationEntity getEducationById(Long id);
     List<EducationEntity> getAllEducation();
-    void updateEducation(Long id, EducationDTO educationDTO);
+    EducationEntity updateEducation(Long id, EducationDTO educationDTO);
     void deleteEducationById(Long id);
 }

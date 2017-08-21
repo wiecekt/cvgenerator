@@ -54,7 +54,7 @@ public class EmployeeEntity implements Serializable {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JsonIgnore
     @JoinColumn(unique = true)
     private UserEntity userEntity;

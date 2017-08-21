@@ -6,6 +6,8 @@ import com.tt.test.service.dto.ProjectDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class ProjectEntityResource {
     }
 
     @GetMapping("/projects/{id}")
-    public ProjectEntity getProject(@PathVariable("id") Long id) {
-        return projectService.getProjectById(id);
+    public ResponseEntity<ProjectEntity> getProject(@PathVariable("id") Long id) {
+        ProjectEntity projectEntity = projectService.getProjectById(id);
+        return new ResponseEntity<>(projectEntity, HttpStatus.OK);
     }
 
     @GetMapping("/projects")
-    public List<ProjectEntity> getAllProjects() {
-        return projectService.getAllProjects();
+    public ResponseEntity<List<ProjectEntity>> getAllProjects() {
+        List<ProjectEntity> allProjects = projectService.getAllProjects();
+        return new ResponseEntity<>(allProjects, HttpStatus.OK);
     }
 
     @PostMapping("/projects")
-    public ProjectEntity createProject(@RequestBody ProjectDTO projectDTO) {
-        return projectService.create(projectDTO);
+    public ResponseEntity<ProjectEntity> createProject(@RequestBody ProjectDTO projectDTO) {
+        ProjectEntity projectEntity = projectService.create(projectDTO);
+        return new ResponseEntity<>(projectEntity, HttpStatus.OK);
     }
 
     @PutMapping("/projects/{id}")
-    public ProjectEntity updateProject(@PathVariable("id") Long id, @RequestBody ProjectDTO projectDTO) {
-        return projectService.updateProject(id, projectDTO);
+    public ResponseEntity<ProjectEntity> updateProject(@PathVariable("id") Long id, @RequestBody ProjectDTO projectDTO) {
+        ProjectEntity projectEntity = projectService.updateProject(id, projectDTO);
+        return new ResponseEntity<>(projectEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/projects/{id}")
-    public void deleteProject(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteProject(@PathVariable("id") Long id) {
         projectService.deleteProjectById(id);
+        return new ResponseEntity<>("Project with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /*

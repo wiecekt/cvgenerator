@@ -6,6 +6,8 @@ import com.tt.test.service.dto.EducationDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class EducationEntityResource {
     }
 
     @GetMapping("/education/{id}")
-    public EducationEntity getEducation(@PathVariable("id") Long id) {
-        return educationService.getEducationById(id);
+    public ResponseEntity<EducationEntity> getEducation(@PathVariable("id") Long id) {
+        EducationEntity educationEntity = educationService.getEducationById(id);
+        return new ResponseEntity<>(educationEntity, HttpStatus.OK);
     }
 
     @GetMapping("/education")
-    public List<EducationEntity> getAllEducation() {
-        return educationService.getAllEducation();
+    public ResponseEntity<List<EducationEntity>> getAllEducation() {
+        List<EducationEntity> allEducation = educationService.getAllEducation();
+        return new ResponseEntity<>(allEducation, HttpStatus.OK);
     }
 
     @PostMapping("/education")
-    public EducationEntity createEducation(@RequestBody EducationDTO educationDTO) {
-        return educationService.create(educationDTO);
+    public ResponseEntity<EducationEntity> createEducation(@RequestBody EducationDTO educationDTO) {
+        EducationEntity educationEntity = educationService.create(educationDTO);
+        return new ResponseEntity<>(educationEntity, HttpStatus.OK);
     }
 
     @PutMapping("/education/{id}")
-    public EducationEntity updateEducation(@PathVariable("id") Long id, @RequestBody EducationDTO educationDTO) {
-        return educationService.updateEducation(id, educationDTO);
+    public ResponseEntity<EducationEntity> updateEducation(@PathVariable("id") Long id, @RequestBody EducationDTO educationDTO) {
+        EducationEntity educationEntity = educationService.updateEducation(id, educationDTO);
+        return new ResponseEntity<>(educationEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/education/{id}")
-    public void deleteEducation(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteEducation(@PathVariable("id") Long id) {
         educationService.deleteEducationById(id);
+        return new ResponseEntity<>("Education with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /*

@@ -3,9 +3,12 @@ package com.tt.test.web.rest;
 import com.tt.test.domain.AbilityEntity;
 import com.tt.test.service.AbilityService;
 import com.tt.test.service.dto.AbilityDTO;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +33,33 @@ public class AbilityEntityResource {
     }
 
     @GetMapping("/abilities/{id}")
-    public AbilityEntity getAbility(@PathVariable("id") Long id) {
-        return abilityService.getAbilityById(id);
+    public ResponseEntity<AbilityEntity> getAbility(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        AbilityEntity abilityById = abilityService.getAbilityById(id);
+        return new ResponseEntity<>(abilityById, HttpStatus.OK);
     }
 
     @GetMapping("/abilities")
-    public List<AbilityEntity> getAllAbilities() {
-        return abilityService.getAllAbilities();
+    public ResponseEntity<List<AbilityEntity>> getAllAbilities() {
+        List<AbilityEntity> allAbilities = abilityService.getAllAbilities();
+        return new ResponseEntity<>(allAbilities, HttpStatus.OK);
     }
 
     @PostMapping("/abilities")
-    public AbilityEntity createAbility(@RequestBody AbilityDTO abilityDTO) {
-        return abilityService.create(abilityDTO);
+    public ResponseEntity<AbilityEntity> createAbility(@RequestBody AbilityDTO abilityDTO) {
+        AbilityEntity abilityEntity = abilityService.create(abilityDTO);
+        return new ResponseEntity<>(abilityEntity, HttpStatus.OK);
     }
 
     @PutMapping("/abilities/{id}")
-    public AbilityEntity updateAbility(@PathVariable("id") Long id, @RequestBody AbilityDTO abilityDTO) {
-        return abilityService.updateAbility(id, abilityDTO);
+    public ResponseEntity<AbilityEntity> updateAbility(@PathVariable("id") Long id, @RequestBody AbilityDTO abilityDTO) {
+        AbilityEntity abilityEntity = abilityService.updateAbility(id, abilityDTO);
+        return new ResponseEntity<>(abilityEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/abilities/{id}")
-    public void deleteAbility(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteAbility(@PathVariable("id") Long id) {
         abilityService.deleteAbilityById(id);
+        return new ResponseEntity<>("Ability with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /*@GetMapping("/ability-entities/{id}")

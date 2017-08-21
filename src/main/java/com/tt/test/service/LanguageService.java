@@ -15,5 +15,5 @@ public interface LanguageService {
     List<LanguageEntity> getAllLanguages();
     LanguageEntity updateLanguage(Long id, LanguageDTO languageDTO);
     void deleteLanguageById(Long id);
-
+    boolean checkIfExists(Long id);
 }

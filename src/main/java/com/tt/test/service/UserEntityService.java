@@ -13,4 +13,5 @@ public interface UserEntityService {
     List<UserEntity> getAllUsers();
     UserEntity updateUser(Long id, UserEntityDTO userEntityDTO);
     void deleteUserById(Long id);
+    boolean checkIfExists(Long id);
 }

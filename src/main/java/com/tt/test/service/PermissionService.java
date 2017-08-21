@@ -15,4 +15,5 @@ public interface PermissionService {
     List<PermissionEntity> getAllPermissions();
     PermissionEntity updatePermission(Long id, PermissionDTO permissionDTO);
     void deletePermissionById(Long id);
+    boolean checkIfExists(Long id);
 }

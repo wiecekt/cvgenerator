@@ -15,4 +15,5 @@ public interface HistoryExperienceService {
     List<HistoryExperienceEntity> getAllHistoryExperiences();
     HistoryExperienceEntity updateHistoryExperience(Long id, HistoryExperienceDTO historyExperienceDTO);
     void deleteHistoryExperienceById(Long id);
+    boolean checkIfExists(Long id);
 }

@@ -6,6 +6,8 @@ import com.tt.test.service.dto.LanguageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class LanguageEntityResource {
     }
 
     @GetMapping("/languages/{id}")
-    public LanguageEntity getLanguage(@PathVariable("id") Long id) {
-        return languageService.getLanguageById(id);
+    public ResponseEntity<LanguageEntity> getLanguage(@PathVariable("id") Long id) {
+        LanguageEntity languageEntity = languageService.getLanguageById(id);
+        return new ResponseEntity<>(languageEntity, HttpStatus.OK);
     }
 
     @GetMapping("/languages")
-    public List<LanguageEntity> getAllLanguages() {
-        return languageService.getAllLanguages();
+    public ResponseEntity<List<LanguageEntity>> getAllLanguages() {
+        List<LanguageEntity> allLanguages = languageService.getAllLanguages();
+        return new ResponseEntity<>(allLanguages, HttpStatus.OK);
     }
 
     @PostMapping("/languages")
-    public LanguageEntity createLanguage(@RequestBody LanguageDTO languageDTO) {
-        return languageService.create(languageDTO);
+    public ResponseEntity<LanguageEntity> createLanguage(@RequestBody LanguageDTO languageDTO) {
+        LanguageEntity languageEntity = languageService.create(languageDTO);
+        return new ResponseEntity<>(languageEntity, HttpStatus.OK);
     }
 
     @PutMapping("/languages/{id}")
-    public LanguageEntity updateLanguage(@PathVariable("id") Long id, @RequestBody LanguageDTO languageDTO) {
-        return languageService.updateLanguage(id, languageDTO);
+    public ResponseEntity<LanguageEntity> updateLanguage(@PathVariable("id") Long id, @RequestBody LanguageDTO languageDTO) {
+        LanguageEntity languageEntity = languageService.updateLanguage(id, languageDTO);
+        return new ResponseEntity<>(languageEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/languages/{id}")
-    public void deleteLanguage(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteLanguage(@PathVariable("id") Long id) {
         languageService.deleteLanguageById(id);
+        return new ResponseEntity<>("Language with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /*

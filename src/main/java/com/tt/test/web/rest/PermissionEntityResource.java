@@ -6,6 +6,8 @@ import com.tt.test.service.dto.PermissionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class PermissionEntityResource {
     }
 
     @GetMapping("/permissions/{id}")
-    public PermissionEntity getPermission(@PathVariable("id") Long id) {
-        return permissionService.getPermissionById(id);
+    public ResponseEntity<PermissionEntity> getPermission(@PathVariable("id") Long id) {
+        PermissionEntity permissionEntity = permissionService.getPermissionById(id);
+        return new ResponseEntity<>(permissionEntity, HttpStatus.OK);
     }
 
     @GetMapping("/permissions")
-    public List<PermissionEntity> getAllPermissions() {
-        return permissionService.getAllPermissions();
+    public ResponseEntity<List<PermissionEntity>> getAllPermissions() {
+        List<PermissionEntity> allPermissions = permissionService.getAllPermissions();
+        return new ResponseEntity<>(allPermissions, HttpStatus.OK);
     }
 
     @PostMapping("/permissions")
-    public PermissionEntity createPermission(@RequestBody PermissionDTO permissionDTO) {
-        return permissionService.create(permissionDTO);
+    public ResponseEntity<PermissionEntity> createPermission(@RequestBody PermissionDTO permissionDTO) {
+        PermissionEntity permissionEntity = permissionService.create(permissionDTO);
+        return new ResponseEntity<>(permissionEntity, HttpStatus.OK);
     }
 
     @PutMapping("/permissions/{id}")
-    public PermissionEntity updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDTO permissionDTO) {
-        return permissionService.updatePermission(id, permissionDTO);
+    public ResponseEntity<PermissionEntity> updatePermission(@PathVariable("id") Long id, @RequestBody PermissionDTO permissionDTO) {
+        PermissionEntity permissionEntity = permissionService.updatePermission(id, permissionDTO);
+        return new ResponseEntity<>(permissionEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/permissions/{id}")
-    public void deletePermission(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deletePermission(@PathVariable("id") Long id) {
         permissionService.deletePermissionById(id);
+        return new ResponseEntity<>("Permission with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /*

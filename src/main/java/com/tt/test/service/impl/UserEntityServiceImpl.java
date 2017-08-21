@@ -6,6 +6,7 @@ import com.tt.test.repository.UserEntityRepository;
 import com.tt.test.service.UserEntityService;
 import com.tt.test.service.dto.UserEntityDTO;
 import com.tt.test.service.mapper.UserEntityMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,10 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Override
     public UserEntity getUserById(Long id) {
-        return userEntityRepository.findOne(id);
+        UserEntity userEntity = userEntityRepository.findOne(id);
+        if (userEntity == null)
+            throw new ResourceNotFoundException("User with id = " + id + " was not found.");
+        return userEntity;
     }
 
     @Override
@@ -49,16 +53,23 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Override
     public UserEntity updateUser(Long id, UserEntityDTO userEntityDTO) {
-        //sprawdz czy istnieje
-        UserEntity userById = getUserById(id);
         UserEntity userEntity = userEntityMapper.asUserEntity(userEntityDTO);
-        userEntity.setId(userById.getId());
+        if (checkIfExists(id))
+            userEntity.setId(id);
 
         return userEntityRepository.save(userEntity);
     }
 
     @Override
     public void deleteUserById(Long id) {
-        userEntityRepository.delete(id);
+        if (checkIfExists(id))
+            userEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!userEntityRepository.exists(id))
+            throw new ResourceNotFoundException("Ability with id = " + id + " was not found.");
+        return true;
     }
 }

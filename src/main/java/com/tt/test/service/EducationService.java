@@ -15,4 +15,5 @@ public interface EducationService {
     List<EducationEntity> getAllEducation();
     EducationEntity updateEducation(Long id, EducationDTO educationDTO);
     void deleteEducationById(Long id);
+    boolean checkIfExists(Long id);
 }

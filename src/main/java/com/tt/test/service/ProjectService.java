@@ -15,4 +15,5 @@ public interface ProjectService {
     List<ProjectEntity> getAllProjects();
     ProjectEntity updateProject(Long id, ProjectDTO projectDTO);
     void deleteProjectById(Long id);
+    boolean checkIfExists(Long id);
 }

@@ -7,6 +7,7 @@ import com.tt.test.repository.EmployeeEntityRepository;
 import com.tt.test.service.EducationService;
 import com.tt.test.service.dto.EducationDTO;
 import com.tt.test.service.mapper.EducationMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,6 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EducationEntity create(EducationDTO educationDTO) {
-        //sprawdz czy istnieje taki o podanym id
         EmployeeEntity employeeById = findEmployeeById(educationDTO.getEmployeeId());
         EducationEntity educationEntity = educationMapper.asEducationEntity(educationDTO);
         educationEntity.setEmployeeEntity(employeeById);
@@ -44,12 +44,18 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EmployeeEntity findEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
+        EmployeeEntity employeeEntity = employeeEntityRepository.findOne(id);
+        if (employeeEntity == null)
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return employeeEntity;
     }
 
     @Override
     public EducationEntity getEducationById(Long id) {
-        return educationEntityRepository.findOne(id);
+        EducationEntity educationEntity = educationEntityRepository.findOne(id);
+        if (educationEntity == null)
+            throw new ResourceNotFoundException("Education with id = " + id + " was not found.");
+        return educationEntity;
     }
 
     @Override
@@ -59,10 +65,9 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EducationEntity updateEducation(Long id, EducationDTO educationDTO) {
-        //sprawdz czy istnieje
-        EducationEntity educationById = getEducationById(id);
         EducationEntity educationEntity = educationMapper.asEducationEntity(educationDTO);
-        educationEntity.setId(educationById.getId());
+        if (checkIfExists(id))
+            educationEntity.setId(id);
 
         EmployeeEntity employeeById = findEmployeeById(educationDTO.getEmployeeId());
         educationEntity.setEmployeeEntity(employeeById);
@@ -72,6 +77,14 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public void deleteEducationById(Long id) {
-        educationEntityRepository.delete(id);
+        if(checkIfExists(id))
+            educationEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!educationEntityRepository.exists(id))
+            throw new ResourceNotFoundException("Ability with id = " + id + " was not found.");
+        return true;
     }
 }

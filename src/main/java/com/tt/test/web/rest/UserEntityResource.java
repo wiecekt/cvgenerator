@@ -6,6 +6,8 @@ import com.tt.test.service.dto.UserEntityDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class UserEntityResource {
     }
 
     @GetMapping("/users/{id}")
-    public UserEntity getUser(@PathVariable("id") Long id) {
-        return userEntityService.getUserById(id);
+    public ResponseEntity<UserEntity> getUser(@PathVariable("id") Long id) {
+        UserEntity userEntity = userEntityService.getUserById(id);
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @GetMapping("/users")
-    public List<UserEntity> getAllUsers() {
-        return userEntityService.getAllUsers();
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        List<UserEntity> allUsers = userEntityService.getAllUsers();
+        return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
     @PostMapping("/users")
-    public UserEntity createUser(@RequestBody UserEntityDTO userEntityDTO) {
-        return userEntityService.create(userEntityDTO);
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntityDTO userEntityDTO) {
+        UserEntity userEntity = userEntityService.create(userEntityDTO);
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
-    public UserEntity updateUser(@PathVariable("id") Long id, @RequestBody UserEntityDTO userEntityDTO) {
-        return userEntityService.updateUser(id, userEntityDTO);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable("id") Long id, @RequestBody UserEntityDTO userEntityDTO) {
+        UserEntity userEntity = userEntityService.updateUser(id, userEntityDTO);
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
         userEntityService.deleteUserById(id);
+        return new ResponseEntity<>("User with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
    /*

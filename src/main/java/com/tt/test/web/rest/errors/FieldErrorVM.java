@@ -1,3 +1,4 @@
+/*
 package com.tt.test.web.rest.errors;
 
 import java.io.Serializable;
@@ -31,3 +32,4 @@ public class FieldErrorVM implements Serializable {
     }
 
 }
+*/

@@ -6,6 +6,8 @@ import com.tt.test.service.dto.DictionaryDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,33 +32,39 @@ public class DictionaryEntityResource {
     }
 
     @GetMapping("/dictionaries/{section}")
-    public List<DictionaryEntity> getDictionaryBySection(@PathVariable("section") String section) {
-        return dictionaryService.getDictionariesBySection(section.toUpperCase());
+    public ResponseEntity<List<DictionaryEntity>> getDictionaryBySection(@PathVariable("section") String section) {
+        List<DictionaryEntity> dictionariesBySection = dictionaryService.getDictionariesBySection(section.toUpperCase());
+        return new ResponseEntity<>(dictionariesBySection, HttpStatus.OK);
     }
 
     @GetMapping("/dictionaries/{id}")
-    public DictionaryEntity getDictionary(@PathVariable("id") Long id) {
-        return dictionaryService.getDictionaryById(id);
+    public ResponseEntity<DictionaryEntity> getDictionary(@PathVariable("id") Long id) {
+        DictionaryEntity dictionaryById = dictionaryService.getDictionaryById(id);
+        return new ResponseEntity<>(dictionaryById, HttpStatus.OK);
     }
 
     @GetMapping("/dictionaries")
-    public List<DictionaryEntity> getAllDictionaries() {
-        return dictionaryService.getAllDictionaries();
+    public ResponseEntity<List<DictionaryEntity>> getAllDictionaries() {
+        List<DictionaryEntity> allDictionaries = dictionaryService.getAllDictionaries();
+        return new ResponseEntity<>(allDictionaries, HttpStatus.OK);
     }
 
     @PostMapping("/dictionaries")
-    public DictionaryEntity createDictionary(@RequestBody DictionaryDTO dictionaryDTO) {
-        return dictionaryService.create(dictionaryDTO);
+    public ResponseEntity<DictionaryEntity> createDictionary(@RequestBody DictionaryDTO dictionaryDTO) {
+        DictionaryEntity dictionaryEntity = dictionaryService.create(dictionaryDTO);
+        return new ResponseEntity<>(dictionaryEntity, HttpStatus.OK);
     }
 
     @PutMapping("/dictionaries/{id}")
-    public DictionaryEntity updateDictionary(@PathVariable("id") Long id, @RequestBody DictionaryDTO dictionaryDTO) {
-        return dictionaryService.updateDictionary(id, dictionaryDTO);
+    public ResponseEntity<DictionaryEntity> updateDictionary(@PathVariable("id") Long id, @RequestBody DictionaryDTO dictionaryDTO) {
+        DictionaryEntity dictionaryEntity = dictionaryService.updateDictionary(id, dictionaryDTO);
+        return new ResponseEntity<>(dictionaryEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/dictionaries/{id}")
-    public void deleteDictionary(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteDictionary(@PathVariable("id") Long id) {
         dictionaryService.deleteDictionaryById(id);
+        return new ResponseEntity<>("Dictionary with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 /*
     *//**

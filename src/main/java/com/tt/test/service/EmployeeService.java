@@ -17,5 +17,6 @@ public interface EmployeeService {
     EmployeeEntity updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO);
     void deleteEmployeeById(Long id);
 
-    void createTest(EmployeeDTO employeeDTO);
+    EmployeeEntity createCompleteEmployee(EmployeeDTO employeeDTO);
+    boolean checkIfExists(Long id);
 }

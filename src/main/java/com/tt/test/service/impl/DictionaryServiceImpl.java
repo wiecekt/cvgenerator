@@ -5,6 +5,7 @@ import com.tt.test.repository.DictionaryEntityRepository;
 import com.tt.test.service.DictionaryService;
 import com.tt.test.service.dto.DictionaryDTO;
 import com.tt.test.service.mapper.DictionaryMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,18 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Override
     public DictionaryEntity getDictionaryById(Long id) {
-        return dictionaryEntityRepository.findOne(id);
+        DictionaryEntity dictionaryEntity = dictionaryEntityRepository.findOne(id);
+        if (dictionaryEntity == null)
+            throw new ResourceNotFoundException("Dictionary with id = " + id + " was not found.");
+        return dictionaryEntity;
     }
 
     @Override
     public List<DictionaryEntity> getDictionariesBySection(String section) {
+        /*List<DictionaryEntity> dictionariesBySection = dictionaryEntityRepository.findDictionariesBySection(section);
+        if(dictionariesBySection.isEmpty())
+            throw new ResourceNotFoundException("Dictionaries for section: " + section + " were not found.");
+        return dictionariesBySection;*/
         return dictionaryEntityRepository.findDictionariesBySection(section);
     }
 
@@ -51,15 +59,23 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Override
     public DictionaryEntity updateDictionary(Long id, DictionaryDTO dictionaryDTO) {
-        DictionaryEntity dictionaryById = getDictionaryById(id);
         DictionaryEntity dictionaryEntity = dictionaryMapper.asDictionaryEntity(dictionaryDTO);
-        dictionaryEntity.setId(dictionaryById.getId());
+        if(checkIfExists(id))
+            dictionaryEntity.setId(id);
 
         return dictionaryEntityRepository.save(dictionaryEntity);
     }
 
     @Override
     public void deleteDictionaryById(Long id) {
-        dictionaryEntityRepository.delete(id);
+        if (checkIfExists(id))
+            dictionaryEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!dictionaryEntityRepository.exists(id))
+            throw new ResourceNotFoundException("Dictionary with id = " + id + " was not found.");
+        return true;
     }
 }

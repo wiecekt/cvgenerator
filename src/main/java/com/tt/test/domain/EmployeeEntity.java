@@ -21,7 +21,6 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AllArgsConstructor
 @NoArgsConstructor
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmployeeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,30 +54,30 @@ public class EmployeeEntity implements Serializable {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(unique = true)
     private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<HistoryExperienceEntity> historyExperienceEntities;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<EducationEntity> educationEntities;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AbilityEntity> abilityEntities;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AdditionalInfoEntity> additionalInfoEntities;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PermissionEntity> permissionEntities;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ProjectEntity> projectEntities;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<LanguageEntity> languageEntities;
 
     public Long getId() {

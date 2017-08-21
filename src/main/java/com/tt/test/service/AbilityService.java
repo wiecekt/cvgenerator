@@ -16,4 +16,5 @@ public interface AbilityService {
     List<AbilityEntity> getAllAbilities();
     AbilityEntity updateAbility(Long id, AbilityDTO abilityDTO);
     void deleteAbilityById(Long id);
+    boolean checkIfExists(Long id);
 }

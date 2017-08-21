@@ -1,3 +1,4 @@
+/*
 package com.tt.test.web.rest.errors;
 
 import java.util.List;
@@ -16,9 +17,11 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+*/
 /**
  * Controller advice to translate the server side exceptions to client-friendly json structures.
- */
+ *//*
+
 @ControllerAdvice
 public class ExceptionTranslator {
 
@@ -85,3 +88,4 @@ public class ExceptionTranslator {
         return builder.body(errorVM);
     }
 }
+*/

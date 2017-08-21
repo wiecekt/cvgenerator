@@ -6,6 +6,8 @@ import com.tt.test.service.dto.HistoryExperienceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class HistoryExperienceEntityResource {
     }
 
     @GetMapping("/history-experiences/{id}")
-    public HistoryExperienceEntity getHistoryExperience(@PathVariable("id") Long id) {
-        return historyExperienceService.getHistoryExperienceById(id);
+    public ResponseEntity<HistoryExperienceEntity> getHistoryExperience(@PathVariable("id") Long id) {
+        HistoryExperienceEntity historyExperienceEntity = historyExperienceService.getHistoryExperienceById(id);
+        return new ResponseEntity<>(historyExperienceEntity, HttpStatus.OK);
     }
 
     @GetMapping("/history-experiences")
-    public List<HistoryExperienceEntity> getAllHistoryExperiences() {
-        return historyExperienceService.getAllHistoryExperiences();
+    public ResponseEntity<List<HistoryExperienceEntity>> getAllHistoryExperiences() {
+        List<HistoryExperienceEntity> allHistoryExperiences = historyExperienceService.getAllHistoryExperiences();
+        return new ResponseEntity<>(allHistoryExperiences, HttpStatus.OK);
     }
 
     @PostMapping("/history-experiences")
-    public HistoryExperienceEntity createHistoryExperience(@RequestBody HistoryExperienceDTO historyExperienceDTO) {
-        return historyExperienceService.create(historyExperienceDTO);
+    public ResponseEntity<HistoryExperienceEntity> createHistoryExperience(@RequestBody HistoryExperienceDTO historyExperienceDTO) {
+        HistoryExperienceEntity historyExperienceEntity = historyExperienceService.create(historyExperienceDTO);
+        return new ResponseEntity<>(historyExperienceEntity, HttpStatus.OK);
     }
 
     @PutMapping("/history-experiences/{id}")
-    public HistoryExperienceEntity updateHistoryExperience(@PathVariable("id") Long id, @RequestBody HistoryExperienceDTO historyExperienceDTO) {
-        return historyExperienceService.updateHistoryExperience(id, historyExperienceDTO);
+    public ResponseEntity<HistoryExperienceEntity> updateHistoryExperience(@PathVariable("id") Long id, @RequestBody HistoryExperienceDTO historyExperienceDTO) {
+        HistoryExperienceEntity historyExperienceEntity = historyExperienceService.updateHistoryExperience(id, historyExperienceDTO);
+        return new ResponseEntity<>(historyExperienceEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/history-experiences/{id}")
-    public void deleteHistoryExperience(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteHistoryExperience(@PathVariable("id") Long id) {
         historyExperienceService.deleteHistoryExperienceById(id);
+        return new ResponseEntity<>("HistoryExperience with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /*

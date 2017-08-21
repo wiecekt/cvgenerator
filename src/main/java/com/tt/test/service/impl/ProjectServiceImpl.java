@@ -7,6 +7,7 @@ import com.tt.test.repository.ProjectEntityRepository;
 import com.tt.test.service.ProjectService;
 import com.tt.test.service.dto.ProjectDTO;
 import com.tt.test.service.mapper.ProjectMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +44,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public EmployeeEntity findEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
+        EmployeeEntity employeeEntity = employeeEntityRepository.findOne(id);
+        if (employeeEntity == null)
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return employeeEntity;
     }
 
     @Override
     public ProjectEntity getProjectById(Long id) {
-        return projectEntityRepository.findOne(id);
+        ProjectEntity projectEntity = projectEntityRepository.findOne(id);
+        if (projectEntity == null)
+            throw new ResourceNotFoundException("Project with id = " + id + " was not found.");
+        return projectEntity;
     }
 
     @Override
@@ -58,10 +65,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectEntity updateProject(Long id, ProjectDTO projectDTO) {
-        //sprawdz czy istnieje
-        ProjectEntity projectById = getProjectById(id);
         ProjectEntity projectEntity = projectMapper.asProjectEntity(projectDTO);
-        projectEntity.setId(projectById.getId());
+        if (checkIfExists(id))
+            projectEntity.setId(id);
 
         EmployeeEntity employeeById = findEmployeeById(projectDTO.getEmployeeId());
         projectEntity.setEmployeeEntity(employeeById);
@@ -71,6 +77,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void deleteProjectById(Long id) {
-        projectEntityRepository.delete(id);
+        if (checkIfExists(id))
+            projectEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!projectEntityRepository.exists(id))
+            throw new ResourceNotFoundException("Project with id = " + id + " was not found.");
+        return true;
     }
 }

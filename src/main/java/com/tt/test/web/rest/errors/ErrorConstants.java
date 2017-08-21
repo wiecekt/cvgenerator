@@ -1,3 +1,4 @@
+/*
 package com.tt.test.web.rest.errors;
 
 public final class ErrorConstants {
@@ -12,3 +13,4 @@ public final class ErrorConstants {
     }
 
 }
+*/

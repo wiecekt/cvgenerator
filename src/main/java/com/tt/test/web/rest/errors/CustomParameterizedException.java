@@ -1,8 +1,10 @@
+/*
 package com.tt.test.web.rest.errors;
 
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * Custom, parameterized exception, which can be translated on the client side.
  * For example:
@@ -16,7 +18,8 @@ import java.util.Map;
  * <pre>
  * "error.myCustomError" :  "The server says {{param0}} to {{param1}}"
  * </pre>
- */
+ *//*
+
 public class CustomParameterizedException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
@@ -47,3 +50,4 @@ public class CustomParameterizedException extends RuntimeException {
         return new ParameterizedErrorVM(message, paramMap);
     }
 }
+*/

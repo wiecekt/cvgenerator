@@ -7,6 +7,7 @@ import com.tt.test.repository.LanguageEntityRepository;
 import com.tt.test.service.LanguageService;
 import com.tt.test.service.dto.LanguageDTO;
 import com.tt.test.service.mapper.LanguageMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,6 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public LanguageEntity create(LanguageDTO languageDTO) {
-        //sprawdz czy istnieje
         EmployeeEntity employeeById = findEmployeeById(languageDTO.getEmployeeId());
         LanguageEntity languageEntity = languageMapper.asLanguageEntity(languageDTO);
         languageEntity.setEmployeeEntity(employeeById);
@@ -44,12 +44,18 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public EmployeeEntity findEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
+        EmployeeEntity employeeEntity = employeeEntityRepository.findOne(id);
+        if (employeeEntity == null)
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return employeeEntity;
     }
 
     @Override
     public LanguageEntity getLanguageById(Long id) {
-        return languageEntityRepository.findOne(id);
+        LanguageEntity languageEntity = languageEntityRepository.findOne(id);
+        if (languageEntity == null)
+            throw new ResourceNotFoundException("Language with id = " + id + " was not found.");
+        return languageEntity;
     }
 
     @Override
@@ -59,10 +65,9 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public LanguageEntity updateLanguage(Long id, LanguageDTO languageDTO) {
-        //sprawdz czy istnieje
-        LanguageEntity languageById = getLanguageById(id);
         LanguageEntity languageEntity = languageMapper.asLanguageEntity(languageDTO);
-        languageEntity.setId(languageById.getId());
+        if (checkIfExists(id))
+            languageEntity.setId(id);
 
         EmployeeEntity employeeById = findEmployeeById(languageDTO.getEmployeeId());
         languageEntity.setEmployeeEntity(employeeById);
@@ -72,6 +77,14 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public void deleteLanguageById(Long id) {
-        languageEntityRepository.delete(id);
+        if (checkIfExists(id))
+            languageEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!languageEntityRepository.exists(id))
+            throw new ResourceNotFoundException("Language with id = " + id + " was not found.");
+        return true;
     }
 }

@@ -6,6 +6,8 @@ import com.tt.test.service.dto.AdditionalInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -30,28 +32,33 @@ public class AdditionalInfoEntityResource {
     }
 
     @GetMapping("/additional-info/{id}")
-    public AdditionalInfoEntity getAdditionalInfo(@PathVariable("id") Long id) {
-        return additionalInfoService.getAdditionalInfoById(id);
+    public ResponseEntity<AdditionalInfoEntity> getAdditionalInfo(@PathVariable("id") Long id) {
+        AdditionalInfoEntity additionalInfoById = additionalInfoService.getAdditionalInfoById(id);
+        return new ResponseEntity<>(additionalInfoById, HttpStatus.OK);
     }
 
     @GetMapping("/additional-info")
-    public List<AdditionalInfoEntity> getAllAdditionalInfos() {
-        return additionalInfoService.getAllAdditionalInfo();
+    public ResponseEntity<List<AdditionalInfoEntity>> getAllAdditionalInfos() {
+        List<AdditionalInfoEntity> allAdditionalInfo = additionalInfoService.getAllAdditionalInfo();
+        return new ResponseEntity<>(allAdditionalInfo, HttpStatus.OK);
     }
 
     @PostMapping("/additional-info")
-    public AdditionalInfoEntity createAdditionalInfo(@RequestBody AdditionalInfoDTO additionalInfoDTO) {
-        return additionalInfoService.create(additionalInfoDTO);
+    public ResponseEntity<AdditionalInfoEntity> createAdditionalInfo(@RequestBody AdditionalInfoDTO additionalInfoDTO) {
+        AdditionalInfoEntity additionalInfoEntity = additionalInfoService.create(additionalInfoDTO);
+        return new ResponseEntity<>(additionalInfoEntity, HttpStatus.OK);
     }
 
     @PutMapping("/additional-info/{id}")
-    public AdditionalInfoEntity updateAdditionalInfo(@PathVariable("id") Long id, @RequestBody AdditionalInfoDTO additionalInfoDTO) {
-        return additionalInfoService.updateAdditionalInfo(id, additionalInfoDTO);
+    public ResponseEntity<AdditionalInfoEntity> updateAdditionalInfo(@PathVariable("id") Long id, @RequestBody AdditionalInfoDTO additionalInfoDTO) {
+        AdditionalInfoEntity additionalInfoEntity = additionalInfoService.updateAdditionalInfo(id, additionalInfoDTO);
+        return new ResponseEntity<>(additionalInfoEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/additional-info/{id}")
-    public void deleteAdditionalInfo(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteAdditionalInfo(@PathVariable("id") Long id) {
         additionalInfoService.deleteAdditionalInfoById(id);
+        return new ResponseEntity<>("AdditionalInfo with id = " + id + " was successfully removed.", HttpStatus.OK);
     }
 
     /**

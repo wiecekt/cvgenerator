@@ -7,6 +7,7 @@ import com.tt.test.repository.EmployeeEntityRepository;
 import com.tt.test.service.AdditionalInfoService;
 import com.tt.test.service.dto.AdditionalInfoDTO;
 import com.tt.test.service.mapper.AdditionalInfoMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,6 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
 
     @Override
     public AdditionalInfoEntity create(AdditionalInfoDTO additionalInfoDTO) {
-        //sprawdz czy istnieje
         EmployeeEntity employeeById = findEmployeeById(additionalInfoDTO.getEmployeeId());
         AdditionalInfoEntity additionalInfoEntity = additionalInfoMapper.asAdditionalInfoEntity(additionalInfoDTO);
         additionalInfoEntity.setEmployeeEntity(employeeById);
@@ -44,12 +44,18 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
 
     @Override
     public EmployeeEntity findEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
+        EmployeeEntity employeeEntity = employeeEntityRepository.findOne(id);
+        if (employeeEntity == null)
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return employeeEntity;
     }
 
     @Override
     public AdditionalInfoEntity getAdditionalInfoById(Long id) {
-        return additionalInfoEntityRepository.findOne(id);
+        AdditionalInfoEntity additionalInfoEntity = additionalInfoEntityRepository.findOne(id);
+        if (additionalInfoEntity == null)
+            throw new ResourceNotFoundException("AdditionalInfo with id = " + id + " was not found.");
+        return additionalInfoEntity;
     }
 
     @Override
@@ -59,9 +65,9 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
 
     @Override
     public AdditionalInfoEntity updateAdditionalInfo(Long id, AdditionalInfoDTO additionalInfoDTO) {
-        AdditionalInfoEntity additionalInfoById = getAdditionalInfoById(id);
         AdditionalInfoEntity additionalInfoEntity = additionalInfoMapper.asAdditionalInfoEntity(additionalInfoDTO);
-        additionalInfoEntity.setId(additionalInfoById.getId());
+        if (checkIfExists(id))
+            additionalInfoEntity.setId(id);
 
         EmployeeEntity employeeById = findEmployeeById(additionalInfoDTO.getEmployeeId());
         additionalInfoEntity.setEmployeeEntity(employeeById);
@@ -71,6 +77,14 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService {
 
     @Override
     public void deleteAdditionalInfoById(Long id) {
-        additionalInfoEntityRepository.delete(id);
+        if (checkIfExists(id))
+            additionalInfoEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!additionalInfoEntityRepository.exists(id))
+            throw new ResourceNotFoundException("AdditionalInfo with id = " + id + " was not found.");
+        return true;
     }
 }

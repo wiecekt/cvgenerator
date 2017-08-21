@@ -14,4 +14,5 @@ public interface DictionaryService {
     List<DictionaryEntity> getAllDictionaries();
     DictionaryEntity updateDictionary(Long id, DictionaryDTO dictionaryDTO);
     void deleteDictionaryById(Long id);
+    boolean checkIfExists(Long id);
 }

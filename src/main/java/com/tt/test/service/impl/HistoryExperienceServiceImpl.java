@@ -7,6 +7,7 @@ import com.tt.test.repository.HistoryExperienceEntityRepository;
 import com.tt.test.service.HistoryExperienceService;
 import com.tt.test.service.dto.HistoryExperienceDTO;
 import com.tt.test.service.mapper.HistoryExperienceMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,6 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
 
     @Override
     public HistoryExperienceEntity create(HistoryExperienceDTO historyExperienceDTO) {
-        //sprawdz czy istnieje taki o podanym id
         EmployeeEntity employeeById = findEmployeeById(historyExperienceDTO.getEmployeeId());
         HistoryExperienceEntity historyExperienceEntity = historyExperienceMapper.asHistoryExperienceEntity(historyExperienceDTO);
         historyExperienceEntity.setEmployeeEntity(employeeById);
@@ -44,12 +44,18 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
 
     @Override
     public EmployeeEntity findEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
+        EmployeeEntity employeeEntity = employeeEntityRepository.findOne(id);
+        if (employeeEntity == null)
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return employeeEntity;
     }
 
     @Override
     public HistoryExperienceEntity getHistoryExperienceById(Long id) {
-        return historyExperienceEntityRepository.findOne(id);
+        HistoryExperienceEntity historyExperienceEntity = historyExperienceEntityRepository.findOne(id);
+        if (historyExperienceEntity == null)
+            throw new ResourceNotFoundException("HistoryExperience with id = " + id + " was not found.");
+        return historyExperienceEntity;
     }
 
     @Override
@@ -59,9 +65,9 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
 
     @Override
     public HistoryExperienceEntity updateHistoryExperience(Long id, HistoryExperienceDTO historyExperienceDTO) {
-        HistoryExperienceEntity historyExperienceById = getHistoryExperienceById(id);
         HistoryExperienceEntity historyExperienceEntity = historyExperienceMapper.asHistoryExperienceEntity(historyExperienceDTO);
-        historyExperienceEntity.setId(historyExperienceById.getId());
+        if (checkIfExists(id))
+            historyExperienceEntity.setId(id);
 
         EmployeeEntity employeeById = findEmployeeById(historyExperienceDTO.getEmployeeId());
         historyExperienceEntity.setEmployeeEntity(employeeById);
@@ -71,6 +77,14 @@ public class HistoryExperienceServiceImpl implements HistoryExperienceService {
 
     @Override
     public void deleteHistoryExperienceById(Long id) {
-        historyExperienceEntityRepository.delete(id);
+        if(checkIfExists(id))
+            historyExperienceEntityRepository.delete(id);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!historyExperienceEntityRepository.exists(id))
+            throw new ResourceNotFoundException("HistoryExperience with id = " + id + " was not found.");
+        return true;
     }
 }

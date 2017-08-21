@@ -8,6 +8,7 @@ import com.tt.test.service.dto.EmployeeDTO;
 import com.tt.test.service.dto.SearchEmployeeDTO;
 import com.tt.test.service.mapper.BasicEmployeeMapper;
 import com.tt.test.service.mapper.UserEntityMapper;
+import com.tt.test.web.rest.exceptions.ResourceNotFoundException;
 import fr.xebia.extras.selma.Selma;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity create(BasicEmployeeDTO basicEmployeeDTO) {
-        //sprawdz czy istnieje
         UserEntity userById = userEntityService.getUserById(basicEmployeeDTO.getUserId());
         EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(basicEmployeeDTO);
         employeeEntity.setUserEntity(userById);
@@ -78,7 +78,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity getEmployeeById(Long id) {
-        return employeeEntityRepository.findOne(id);
+        EmployeeEntity employeeEntity = employeeEntityRepository.findOne(id);
+        if (employeeEntity == null)
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return employeeEntity;
     }
 
     @Override
@@ -193,9 +196,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity updateEmployee(Long id, BasicEmployeeDTO basicEmployeeDTO) {
-        EmployeeEntity employeeById = getEmployeeById(id);
         EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(basicEmployeeDTO);
-        employeeEntity.setId(employeeById.getId());
+        if(checkIfExists(id))
+            employeeEntity.setId(id);
 
         UserEntity userById = userEntityService.getUserById(basicEmployeeDTO.getUserId());
         employeeEntity.setUserEntity(userById);
@@ -205,7 +208,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployeeById(Long id) {
-        employeeEntityRepository.delete(id);
+        if (checkIfExists(id))
+            employeeEntityRepository.delete(id);
     }
 
 /*    public <T> Set<T> updateCollection(Set<T> collection) {
@@ -217,7 +221,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }*/
 
     @Override
-    public void createTest(EmployeeDTO employeeDTO) {
+    public EmployeeEntity createCompleteEmployee(EmployeeDTO employeeDTO) {
         UserEntity userEntity = userEntityMapper.asUserEntity(employeeDTO.getUserEntityDTO());
         userEntity = userEntityService.create(userEntity);
         EmployeeEntity employeeEntity = basicEmployeeMapper.asEmployeeEntity(employeeDTO);
@@ -226,7 +230,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
        EmployeeEntity finalEmployeeEntity = employeeEntity;
 
-        /// TODO: ZROB JAKOS Z TEGO GENERYKA BO ZA DUZO KODU
         Set<HistoryExperienceEntity> historyExperienceEntities = employeeDTO.getHistoryExperienceEntities()
             .stream()
             .peek(e -> e.setEmployeeEntity(finalEmployeeEntity))
@@ -276,6 +279,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         languageEntities.forEach(languageService::create);
         employeeEntity.setLanguageEntities(languageEntities);
 
-        create(employeeEntity);
+        return create(employeeEntity);
+    }
+
+    @Override
+    public boolean checkIfExists(Long id) {
+        if (!employeeEntityRepository.exists(id))
+            throw new ResourceNotFoundException("Employee with id = " + id + " was not found.");
+        return true;
     }
 }
